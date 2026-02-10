@@ -1,0 +1,167 @@
+{
+	"files.exclude": {
+		".git": true,
+		"node_modules/": true,
+		"**/Thumbs.db": true,
+		"Thumbs.db": true,
+		"**/.~lock.*": true
+	},
+	"files.associations": {
+		"LICENSE": "plaintext",
+		"NOTICE": "plaintext"
+	},
+	"[markdown]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true,
+	},
+	"editor.autoClosingTags": false,
+	"editor.linkedEditing": true,
+	"editor.folding": true,
+	"editor.foldingHighlight": true,
+	"editor.foldingStrategy": "auto",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	"files.trimTrailingWhitespace": true,
+	"files.insertFinalNewline": true,
+	"task.autoDetect": "off",
+	"coverage-gutters.coverageFileNames": [
+		"lcov.info"
+	],
+	"coverage-gutters.showGutterCoverage": true,
+	"coverage-gutters.showLineCoverage": true,
+	"coverage-gutters.showRulerCoverage": true,
+	"coverage-gutters.customizable.status-bar-toggler-watchCoverageAndVisibleEditors-enabled": true,
+	"commit-message-editor.dynamicTemplate": [
+		"{type}{scope}: {description}",
+		"",
+		"{body}",
+		"",
+		"{breaking_change}",
+		"",
+		"{fixed_issues}"
+	],
+	"commit-message-editor.tokens": [
+		{
+			"label": "Type",
+			"name": "type",
+			"type": "enum",
+			"options": [
+				{
+					"label": "build",
+					"description": "Changes that affect the build system or external dependencies (example scopes: gulp, npm)"
+				},
+				{
+					"label": "chore",
+					"description": "Updating IDE settings, configuration; no production code change"
+				},
+				{
+					"label": "ci",
+					"description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, GitHub-Actions)"
+				},
+				{
+					"label": "docs",
+					"description": "Documentation only changes"
+				},
+				{
+					"label": "feat",
+					"description": "A new feature"
+				},
+				{
+					"label": "fix",
+					"description": "A bug fix"
+				},
+				{
+					"label": "perf",
+					"description": "A code change that improves performance"
+				},
+				{
+					"label": "refactor",
+					"description": "A code change that neither fixes a bug nor adds a feature"
+				},
+				{
+					"label": "revert"
+				},
+				{
+					"label": "style",
+					"description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+				},
+				{
+					"label": "test",
+					"description": "Adding missing tests or correcting existing tests"
+				}
+			],
+			"description": "Type of changes"
+		},
+		{
+			"label": "Scope",
+			"name": "scope",
+			"description": "A scope may be provided to a commit’s type, to provide additional contextual information and is contained within parenthesis, e.g., \"feat(parser): add ability to parse arrays\".",
+			"prefix": "(",
+			"suffix": ")",
+			"type": "enum",
+			"options": [
+				{
+					"label": ""
+				},
+				{
+					"label": "plugin"
+				},
+				{
+					"label": "vscode"
+				},
+				{
+					"label": "git"
+				},
+				{
+					"label": "github"
+				},
+				{
+					"label": "github-actions"
+				},
+				{
+					"label": "deps"
+				},
+				{
+					"label": "devtools"
+				}
+			]
+		},
+		{
+			"label": "Short description",
+			"name": "description",
+			"description": "Short description in the subject line.",
+			"type": "text",
+			"multiline": false
+		},
+		{
+			"label": "Body",
+			"name": "body",
+			"description": "Optional body",
+			"type": "text",
+			"multiline": true,
+			"lines": 5,
+			"maxLines": 10
+		},
+		{
+			"label": "Breaking change",
+			"name": "breaking_change",
+			"type": "boolean",
+			"value": "BREAKING CHANGE: ",
+			"default": false
+		},
+		{
+			"label": "Issues or PR",
+			"name": "fixed_issues",
+			"type": "text",
+			"description": "Issues or PR with #",
+			"prefix": "Fixes "
+		}
+	],
+	"commit-message-editor.staticTemplate": [
+		"feat: Short description",
+		"",
+		"Message body",
+		"",
+		"Message footer"
+	]
+}

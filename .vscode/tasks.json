@@ -1,0 +1,67 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"type": "shell",
+	"request": "launch",
+	"presentation": {
+		"reveal": "silent",
+		"focus": false,
+		"echo": true,
+		"panel": "shared",
+		"clear": true
+	},
+	"tasks": [
+		{
+			"label": "Install dependencies",
+			"type": "shell",
+			"command": "npm install",
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
+			"presentation": {
+				"reveal": "always",
+				"clear": true,
+				"close": true,
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "npm run build",
+			"presentation": {
+				"reveal": "always",
+				"clear": true
+			}
+		},
+		{
+			"label": "CI",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"command": "npm run CI",
+			"presentation": {
+				"reveal": "always",
+				"clear": true
+			}
+		},
+		{
+			"label": "test",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			// "dependsOn": "build",
+			"command": "npm run test",
+			"presentation": {
+				"reveal": "always",
+				"clear": true
+			}
+		}
+	]
+}
