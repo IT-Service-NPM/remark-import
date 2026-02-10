@@ -1,0 +1,13 @@
+*.md       text  merge=text diff=text eol=lf
+
+*.json     text  merge=json diff=text eol=lf
+*.js       text  merge=text diff=text eol=lf
+*.cjs      text  merge=text diff=text eol=lf
+*.mjs      text  merge=text diff=text eol=lf
+*.ts       text  merge=text diff=text eol=lf
+*.tsx      text  merge=text diff=text eol=lf
+
+*.yml      text  merge=text diff=text eol=lf
+
+package.json text merge=json diff=text eol=lf
+package-lock.json text merge=json diff=text eol=lf
