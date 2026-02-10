@@ -1,0 +1,14 @@
+name: Checking commit messages
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  commitlint:
+    uses: IT-Service-NPM/.github/.github/workflows/commitlint.yml@main
+    secrets: inherit
