@@ -68,6 +68,7 @@ to be relative the original document rather than the imported file.
   - [Examples](#examples)
     - [Transclusion or including markdown sub-documents for reuse](#transclusion-or-including-markdown-sub-documents-forreuse)
     - [File name without extension](#file-name-withoutextension)
+    - [Recursive transclusion](#recursive-transclusion)
   - [API](#api)
   - [License](#license)
 
@@ -144,13 +145,13 @@ Hello. I am the included.
 `@it-service/remark-include` can include sub-documents
 in markdown main document with file name without extension.
 
-> \[!TIP]
+> [!TIP]
 >
 > For extension list used
 > [markdown-extensions](https://www.npmjs.com/package/markdown-extensions)
 > package.
 
-> \[!IMPORTANT]
+> [!IMPORTANT]
 >
 > `remark-directive` plugin expected in remark pipeline before
 > `@it-service/remark-include`!
@@ -209,6 +210,75 @@ Hello. I am an main markdown file with `::include` directive.
 Hello. I am the `included1.md` file.
 
 Hello. I am the `included2.markdown` file.
+
+*That* should do it!
+
+```
+
+### Recursive transclusion
+
+`@it-service/remark-include` directive supported in included files.
+
+> [!IMPORTANT]
+>
+> `remark-directive` plugin expected in remark pipeline before
+> `@it-service/remark-include`!
+
+```typescript file=./example.ts
+import { remark } from 'remark';
+import * as vFile from 'to-vfile';
+import remarkDirective from 'remark-directive';
+import remarkInclude from '#@it-service/remark-include';
+import type { VFile } from 'vfile';
+
+export async function remarkDirectiveUsingExample(
+  filePath: string
+): Promise<VFile> {
+  return remark()
+    .use(remarkDirective)
+    .use(remarkInclude)
+    .process(await vFile.read(filePath));
+};
+
+```
+
+Source files:
+
+main.md:
+
+```markdown file=fixtures/main.md
+Hello. I am an main markdown file with `::include` directive.
+
+::include{file=./included1.md}
+
+_That_ should do it!
+
+```
+
+included1.md:
+
+```markdown file=fixtures/included1.md
+Hello. I am the included1.
+
+::include{file=./included2.md}
+
+```
+
+included2.md:
+
+```markdown file=fixtures/included2.md
+Hello. I am the included2.
+
+```
+
+Remark output:
+
+```markdown file=__snapshots__/output.md
+Hello. I am an main markdown file with `::include` directive.
+
+Hello. I am the included1.
+
+Hello. I am the included2.
 
 *That* should do it!
 
