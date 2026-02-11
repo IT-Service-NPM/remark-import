@@ -56,11 +56,12 @@
 		"test": "vitest run --coverage",
 		"update-readme-API": "npx api-extractor run --local && npx api-documenter markdown -i ./temp -o ./docs",
 		"update-examples-readme": "remark test/examples/*/readme.md --output",
-		"update-main-readme": "remark src/readme.md --output readme.md",
+		"update-main-readme": "remark readme.src.md --output readme.md",
 		"update-readme": "npm run update-examples-readme && npm run update-main-readme",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
 	},
 	"dependencies": {
+		"markdown-extensions": "^2.0.0",
 		"mdast": "^0.26.2",
 		"mdast-util-directive": "^3.1.0",
 		"mdast-util-to-hast": "^13.2.1",

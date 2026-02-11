@@ -55,14 +55,17 @@
 This plugin is a modern version of
 [`remark-import`](https://github.com/BrekiTomasson/remark-import) plugin
 and [`remark-include`](https://github.com/Qard/remark-include) plugin,
-written in Typescript, asynchronous,
-and compatible with Remark v15.
+written in Typescript, and compatible with Remark v15.
+
+Relative images and links in the imported files will have their paths rewritten
+to be relative the original document rather than the imported file.
 
 ## Contents
 
 * * [Install](#install)
   * [Examples](#examples)
 * [Transclusion or including markdown sub-documents for reuse](#transclusion-or-including-markdown-sub-documents-forreuse)
+* [File name without extension](#file-name-withoutextension)
   * [API](#api)
   * [License](#license)
 
@@ -77,7 +80,7 @@ npm install --save-dev @it-service/remark-include
 
 ## Examples
 
-# Transclusion or including markdown sub-documents for reuse
+### Transclusion or including markdown sub-documents for reuse
 
 `@it-service/remark-include` can include sub-documents in markdown document.
 
@@ -129,6 +132,81 @@ Remark output:
 Hello. I am an main markdown file with `::include` directive.
 
 Hello. I am the included.
+
+*That* should do it!
+
+```
+
+### File name without extension
+
+`@it-service/remark-include` can include sub-documents
+in markdown main document with file name without extension.
+
+> \[!TIP]
+>
+> For extension list used
+> [markdown-extensions](https://www.npmjs.com/package/markdown-extensions)
+> package.
+
+> \[!IMPORTANT]
+>
+> `remark-directive` plugin expected in remark pipeline before
+> `@it-service/remark-include`!
+
+```typescript file=./example.ts
+import { remark } from 'remark';
+import * as vFile from 'to-vfile';
+import remarkDirective from 'remark-directive';
+import remarkInclude from '#@it-service/remark-include';
+import type { VFile } from 'vfile';
+
+export async function remarkDirectiveUsingExample(
+  filePath: string
+): Promise<VFile> {
+  return remark()
+    .use(remarkDirective)
+    .use(remarkInclude)
+    .process(await vFile.read(filePath));
+};
+
+```
+
+Source files:
+
+main.md:
+
+```markdown file=fixtures/main.md
+Hello. I am an main markdown file with `::include` directive.
+
+::include{file=./included1}
+
+::include{file=./included2}
+
+_That_ should do it!
+
+```
+
+included1.md:
+
+```markdown file=fixtures/included1.md
+Hello. I am the `included1.md` file.
+
+```
+
+included2.markdown:
+
+```markdown file=fixtures/included2.markdown
+Hello. I am the `included2.markdown` file.
+```
+
+Remark output:
+
+```markdown file=__snapshots__/output.md
+Hello. I am an main markdown file with `::include` directive.
+
+Hello. I am the `included1.md` file.
+
+Hello. I am the `included2.markdown` file.
 
 *That* should do it!
 

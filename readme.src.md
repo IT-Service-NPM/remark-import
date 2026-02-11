@@ -55,8 +55,10 @@
 This plugin is a modern version of
 [`remark-import`](https://github.com/BrekiTomasson/remark-import) plugin
 and [`remark-include`](https://github.com/Qard/remark-include) plugin,
-written in Typescript, asynchronous,
-and compatible with Remark v15.
+written in Typescript, and compatible with Remark v15.
+
+Relative images and links in the imported files will have their paths rewritten
+to be relative the original document rather than the imported file.
 
 ## Contents
 
@@ -78,7 +80,9 @@ npm install --save-dev @it-service/remark-include
 
 ## Examples
 
-::include{file=../test/examples/01/readme.md}
+::include{file=test/examples/01/readme.md}
+
+::include{file=test/examples/02/readme.md}
 
 ## API
 
