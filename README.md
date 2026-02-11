@@ -62,12 +62,14 @@ to be relative the original document rather than the imported file.
 
 ## Contents
 
-* * [Install](#install)
-  * [Examples](#examples)
-* [Transclusion or including markdown sub-documents for reuse](#transclusion-or-including-markdown-sub-documents-forreuse)
-* [File name without extension](#file-name-withoutextension)
-  * [API](#api)
-  * [License](#license)
+- [@it-service/remark-include Remark plugin](#it-serviceremark-include-remark-plugin)
+  - [Contents](#contents)
+  - [Install](#install)
+  - [Examples](#examples)
+    - [Transclusion or including markdown sub-documents for reuse](#transclusion-or-including-markdown-sub-documents-forreuse)
+    - [File name without extension](#file-name-withoutextension)
+  - [API](#api)
+  - [License](#license)
 
 ## Install
 
