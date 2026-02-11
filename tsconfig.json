@@ -1,0 +1,40 @@
+{
+	"compilerOptions": {
+		"noEmit": true,
+		/* Base Options: */
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"target": "ES2020",
+		"lib": [
+			"ES2020"
+		],
+		"allowJs": false,
+		"checkJs": false,
+		"resolveJsonModule": true,
+		"moduleDetection": "auto",
+		"module": "NodeNext",
+		// "moduleResolution": "node16",
+		// "module": "Preserve",
+		"isolatedModules": true,
+		"verbatimModuleSyntax": true,
+		/* Strictness */
+		"strict": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+		/* If transpiling with TypeScript: */
+		// "outDir": "dist",
+		// "rootDir": "src",
+		"sourceMap": true,
+		/* AND if you're building for a library: */
+		"declaration": true,
+		"declarationMap": true,
+		// "emitDeclarationOnly": true,
+		// "exactOptionalPropertyTypes": true,
+		"allowImportingTsExtensions": true,
+		"types": [
+			"node",
+			"vitest/globals",
+			// "@altano/vitest-plugins/matchers"
+		],
+	}
+}

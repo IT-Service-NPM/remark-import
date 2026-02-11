@@ -1,40 +1,124 @@
 {
-  "name": "remark-import",
-  "version": "0.0.8",
-  "description": "Transform @import statements to contents. Forked and heavily revised from Stephe Belanger's original remark-include.",
-  "keywords": [
-    "remark",
-    "import",
-    "markdown"
-  ],
-  "scripts": {
-    "patch-release": "npm version patch && npm publish && git push --follow-tags"
-  },
-  "homepage": "https://github.com/BrekiTomasson/remark-import#readme",
-  "bugs": {
-    "url": "https://github.com/BrekiTomasson/remark-import/issues"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Breki Tomasson",
-    "email": "breki.tomasson@gmail.com",
-    "url": "http://www.brekitomasson.com"
-  },
-  "contributors": [
-    {
-      "name": "Stephen Belanger",
-      "email": "admin@stephenbelanger.com"
-    }
-  ],
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BrekiTomasson/remark-import.git"
-  },
-  "dependencies": {
-    "is-local-path": "^0.1.6",
-    "js-base64-file": "^1.0.1",
-    "progress": "^2.0.0",
-    "vfile": "^2.2.0"
-  }
+	"name": "@it-service/remark-include",
+	"type": "module",
+	"version": "0.0.8",
+	"description": "Add transclusion recursive ability `::include{file=other-file.md}`.",
+	"keywords": [
+		"markdown",
+		"directive",
+		"mdast-plugin",
+		"remark-plugin"
+	],
+	"author": {
+		"name": "Sergei S. Betke",
+		"email": "Sergey.S.Betke@yandex.ru",
+		"url": "https://github.com/sergey-s-betke"
+	},
+	"homepage": "https://github.com/IT-Service-NPM/remark-include",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/IT-Service-NPM/remark-include.git"
+	},
+	"bugs": {
+		"url": "https://github.com/IT-Service-NPM/remark-include/issues"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": ">=20.0"
+	},
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"imports": {
+		"#@it-service/remark-include": "./src/index.ts"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsup-node",
+		"CI": "npm run build && npm run lint && npm run test && npm run update-readme-API && npm run update-readme",
+		"check-exports": "attw --pack .",
+		"lint": "tsc && eslint",
+		"test": "vitest run --coverage",
+		"update-readme-API": "npx api-extractor run --local && npx api-documenter markdown -i ./temp -o ./docs",
+		"update-examples-readme": "remark test/examples/*/readme.md --output",
+		"update-main-readme": "remark src/readme.md --output readme.md",
+		"update-readme": "npm run update-examples-readme && npm run update-main-readme",
+		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+	},
+	"dependencies": {
+		"mdast": "^0.26.2",
+		"mdast-util-directive": "^3.1.0",
+		"mdast-util-to-hast": "^13.2.1",
+		"remark": "^15.0.1",
+		"remark-directive": "^4.0.0",
+		"to-vfile": "^8.0.0",
+		"unified": "^11.0.5",
+		"unist-util-is": "^6.0.1",
+		"unist-util-visit": "^5.1.0",
+		"vfile": "^6.0.3"
+	},
+	"devDependencies": {
+		"@altano/vitest-plugins": "^1.1.1",
+		"@commitlint/cli": "^20.3.0",
+		"@commitlint/config-angular": "^20.3.0",
+		"@commitlint/config-conventional": "^20.3.0",
+		"@commitlint/types": "^20.2.0",
+		"@eslint/eslintrc": "^3.1.0",
+		"@eslint/js": "^9.13.0",
+		"@it-service/remark-include": "file:",
+		"@microsoft/api-documenter": "^7.26.0",
+		"@microsoft/api-extractor": "^7.48.0",
+		"@semantic-release/changelog": "^6.0.3",
+		"@semantic-release/commit-analyzer": "^13.0.0",
+		"@semantic-release/git": "^10.0.1",
+		"@semantic-release/github": "^12.0.2",
+		"@semantic-release/npm": "^13.1.2",
+		"@semantic-release/release-notes-generator": "^14.0.1",
+		"@szum-tech/semantic-release-config": "^2.3.5",
+		"@types/mdast": "^4.0.4",
+		"@types/node": "^25.2.3",
+		"@types/unist": "^3.0.3",
+		"@typescript-eslint/eslint-plugin": "^8.12.2",
+		"@typescript-eslint/parser": "^8.12.2",
+		"@vitest/coverage-istanbul": "^4.0.16",
+		"@vitest/eslint-plugin": "^1.6.6",
+		"conventional-changelog-cli": "^4.1.0",
+		"eslint": "^9.14.0",
+		"eslint-plugin-tsdoc": "^0.5.0",
+		"remark-alerts": "^0.0.1",
+		"remark-cli": "^12.0.1",
+		"remark-code-import": "^1.2.0",
+		"remark-gfm": "^4.0.0",
+		"remark-license": "^6.1.0",
+		"remark-lint-code-block-style": "^4.0.0",
+		"remark-preset-lint-consistent": "^6.0.0",
+		"remark-preset-lint-recommended": "^7.0.0",
+		"remark-toc": "^9.0.0",
+		"remark-typography": "^0.7.0",
+		"remark-validate-links": "^13.0.2",
+		"semantic-release": "^25.0.2",
+		"ts-node": "^10.9.2",
+		"tsdoc-markdown": "^1.0.0",
+		"tsup": "^8.3.5",
+		"tsx": "^4.19.2",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.15.0",
+		"vite-plugin-vitest-typescript-assert": "^1.1.4",
+		"vitest": "^4.0.16"
+	}
 }
