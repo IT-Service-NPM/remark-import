@@ -188,7 +188,10 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
               }
             );
 
-            parent!.children.splice(index!, 1, ...includedAST.children);
+            parent!.children.splice(
+              index!, 1,
+              ...includedAST.children
+            );
           };
         };
       }
