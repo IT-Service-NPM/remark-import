@@ -27,6 +27,6 @@ export default {
     remarkLintCodeBlockStyle,
   ],
   settings: {
-    bullet: '*'
+    bullet: '-'
   }
 }

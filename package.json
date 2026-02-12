@@ -65,6 +65,7 @@
 		"mdast": "^0.26.2",
 		"mdast-util-directive": "^3.1.0",
 		"mdast-util-to-hast": "^13.2.1",
+		"parse-url": "^10.0.3",
 		"remark": "^15.0.1",
 		"remark-directive": "^4.0.0",
 		"to-vfile": "^8.0.0",

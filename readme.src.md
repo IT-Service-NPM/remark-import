@@ -86,6 +86,8 @@ npm install --save-dev @it-service/remark-include
 
 ::include{file=test/examples/04/readme.md}
 
+::include{file=test/examples/10/readme.md}
+
 ## API
 
 Please, read the [API reference](/docs/index.md).
