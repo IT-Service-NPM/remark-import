@@ -1,0 +1,27 @@
+name: Compile 'dist' from sources
+
+on:
+
+  workflow_dispatch:
+    inputs:
+      ignore-cache:
+        required: false
+        type: boolean
+        description: build without node_modules cache
+
+  workflow_call:
+    inputs:
+      ignore-cache:
+        required: false
+        type: boolean
+        description: build without node_modules cache
+
+jobs:
+  build:
+    permissions:
+      actions: read
+      contents: read
+    uses: IT-Service-NPM/.github/.github/workflows/compile-npm-package.yml@main
+    with:
+      ignore-cache: ${{ inputs.ignore-cache }}
+    secrets: inherit

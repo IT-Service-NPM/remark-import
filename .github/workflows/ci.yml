@@ -1,0 +1,113 @@
+name: Continuous integration
+
+on:
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'tsup.config.ts'
+      - 'test/**'
+      - 'vitest.config.ts'
+      - 'eslint.config.mjs'
+      - 'api-extractor.json'
+      - 'readme.md'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/build-*.yml'
+  push:
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'tsup.config.ts'
+      - 'test/**'
+      - 'vitest.config.ts'
+      - 'eslint.config.mjs'
+      - 'api-extractor.json'
+      - 'readme.md'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/build-*.yml'
+
+  workflow_dispatch:
+    inputs:
+      ignore-cache:
+        required: false
+        type: boolean
+        description: build without cache
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+  pull-requests: write
+  checks: write
+
+jobs:
+  build:
+    permissions:
+      actions: read
+      contents: read
+    uses: ./.github/workflows/compile-package.yml
+    with:
+      ignore-cache: ${{ inputs.ignore-cache =='true' }}
+    secrets: inherit
+
+  lint:
+    needs:
+      - build
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+      pull-requests: write
+      statuses: write
+    uses: ./.github/workflows/lint.yml
+    secrets: inherit
+
+  test:
+    needs:
+      - build
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: read
+      issues: read
+    uses: IT-Service-NPM/.github/.github/workflows/test-npm-package.yml@main
+    secrets: inherit
+
+  GitHub:
+    needs:
+      - build
+      - test
+    permissions:
+      actions: read
+      deployments: write
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    uses: IT-Service-NPM/.github/.github/workflows/deploy-to-github-releases.yml@main
+    secrets: inherit
+
+  npmJS:
+    needs:
+      - build
+      - test
+      - GitHub
+    if: needs.GitHub.outputs.is-new-release == 'true'
+    permissions:
+      actions: read
+      deployments: write
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    uses: IT-Service-NPM/.github/.github/workflows/deploy-to-npmJS.yml@main
+    secrets: inherit
