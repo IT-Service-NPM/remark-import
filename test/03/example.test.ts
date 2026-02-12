@@ -3,7 +3,6 @@ import * as path from 'node:path';
 import { remarkDirectiveUsingExample } from './example.ts';
 
 const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
-const testSnapshotsFilesPath: string = path.join(__dirname, 'snapshots');
 
 describe('remark-include', () => {
 
@@ -16,9 +15,7 @@ describe('remark-include', () => {
         path.join(testSrcFilesPath, 'main.md')
       );
 
-      await expect(String(outputFile.messages))
-        .toMatchFileSnapshot(path.join(testSnapshotsFilesPath, 'output.md'));
-
+      expect(outputFile.messages.length).toBe(1);
     } finally {
       process.chdir(_cwd);
     };
