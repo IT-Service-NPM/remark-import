@@ -13,7 +13,6 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./subfolder1/included.md}
 
 _That_ should do it!
-
 ```
 
 included.md:
@@ -26,7 +25,6 @@ Hello. I am the included. Test image:
 ![Test local image with space](test%20image.png)
 
 ![Test web image](https://img.shields.io/badge/github-repo-blue?logo=github)
-
 ```
 
 Remark output:
@@ -43,5 +41,4 @@ Hello. I am the included. Test image:
 ![Test web image](https://img.shields.io/badge/github-repo-blue?logo=github)
 
 *That* should do it!
-
 ```
