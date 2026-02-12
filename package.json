@@ -61,11 +61,12 @@
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
 	},
 	"dependencies": {
+		"is-relative-url": "^4.1.0",
 		"markdown-extensions": "^2.0.0",
 		"mdast": "^0.26.2",
 		"mdast-util-directive": "^3.1.0",
 		"mdast-util-to-hast": "^13.2.1",
-		"parse-url": "^10.0.3",
+		"relateurl": "^0.2.7",
 		"remark": "^15.0.1",
 		"remark-directive": "^4.0.0",
 		"to-vfile": "^8.0.0",
@@ -95,6 +96,7 @@
 		"@szum-tech/semantic-release-config": "^2.3.5",
 		"@types/mdast": "^4.0.4",
 		"@types/node": "^25.2.3",
+		"@types/relateurl": "^0.2.33",
 		"@types/unist": "^3.0.3",
 		"@typescript-eslint/eslint-plugin": "^8.12.2",
 		"@typescript-eslint/parser": "^8.12.2",

@@ -44,7 +44,9 @@ included.md:
 ```markdown file=fixtures/subfolder1/included.md
 Hello. I am the included. Test image:
 
-![Test local image](./test-image.png)
+![Test local image](test-image.png)
+
+![Test local image with space](test%20image.png)
 
 ![Test web image](https://img.shields.io/badge/github-repo-blue?logo=github)
 
@@ -52,12 +54,14 @@ Hello. I am the included. Test image:
 
 Remark output:
 
-```markdown file=__snapshots__/output.md
+```markdown file=fixtures/output.md
 Hello. I am an main markdown file with `::include` directive.
 
 Hello. I am the included. Test image:
 
-![Test local image](subfolder1\test-image.png)
+![Test local image](subfolder1/test-image.png)
+
+![Test local image with space](subfolder1/test%20image.png)
 
 ![Test web image](https://img.shields.io/badge/github-repo-blue?logo=github)
 

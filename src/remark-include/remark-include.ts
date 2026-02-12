@@ -11,6 +11,9 @@
  */
 
 import * as path from 'node:path';
+import * as url from 'node:url';
+import RelateUrl from 'relateurl';
+import isRelativeUrl from 'is-relative-url';
 import { accessSync } from 'node:fs';
 import { asDefined, assertDefined, isDefined } from 'ts-runtime-typecheck';
 import markdownExtensions from 'markdown-extensions';
@@ -21,7 +24,6 @@ import { VFile } from 'vfile';
 import { readSync } from 'to-vfile';
 import { visit } from 'unist-util-visit';
 import { convert } from 'unist-util-is';
-import parseUrl from 'parse-url';
 
 /* eslint-disable max-statements */
 
@@ -117,28 +119,15 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
             _parent?: Parent
           ): void {
 
-            function isUrlLocal(url: string): boolean {
-              try {
-                const parsed = parseUrl(url);
-                if (
-                  /^[A-Z]$/i.test(parsed.protocol)
-                  && parsed.pathname.startsWith('\\')
-                ) {
-                  return true;
-                }
-                return parsed.protocol === 'file';
-              } catch {
-                return true;
-              };
-            };
-
-            if (isUrlLocal(node.url) && !path.isAbsolute(node.url)) {
-              node.url = path.relative(
-                asDefined(file.dirname),
-                path.resolve(
-                  path.dirname(includedFilePath),
-                  node.url
-                )
+            if (isRelativeUrl(node.url, { allowProtocolRelative: false })) {
+              // eslint-disable-next-line max-len
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+              node.url = RelateUrl.relate(
+                url.pathToFileURL(file.path).href,
+                new URL(
+                  node.url,
+                  url.pathToFileURL(includedFilePath)
+                ).href
               );
             };
           };

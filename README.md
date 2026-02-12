@@ -79,8 +79,10 @@ to be relative the original document rather than the imported file.
 npm install --save-dev @it-service/remark-include
 ```
 
-`remark-directive` plugin expected before
-`@it-service/remark-include`!
+> [!IMPORTANT]
+>
+> `remark-directive` plugin expected in remark pipeline before
+> `@it-service/remark-include`!
 
 ## Examples
 
@@ -331,7 +333,9 @@ included.md:
 ```markdown file=fixtures/subfolder1/included.md
 Hello. I am the included. Test image:
 
-![Test local image](./test-image.png)
+![Test local image](test-image.png)
+
+![Test local image with space](test%20image.png)
 
 ![Test web image](https://img.shields.io/badge/github-repo-blue?logo=github)
 
@@ -344,7 +348,9 @@ Hello. I am an main markdown file with `::include` directive.
 
 Hello. I am the included. Test image:
 
-![Test local image](subfolder1\test-image.png)
+![Test local image](subfolder1/test-image.png)
+
+![Test local image with space](subfolder1/test%20image.png)
 
 ![Test web image](https://img.shields.io/badge/github-repo-blue?logo=github)
 
