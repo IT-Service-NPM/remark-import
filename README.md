@@ -62,17 +62,15 @@ to be relative the original document rather than the imported file.
 
 ## Contents
 
-- [@it-service/remark-include Remark plugin](#it-serviceremark-include-remark-plugin)
-  - [Contents](#contents)
-  - [Install](#install)
-  - [Examples](#examples)
-    - [Transclusion or including markdown sub-documents for reuse](#transclusion-or-including-markdown-sub-documents-forreuse)
-    - [File name without extension](#file-name-withoutextension)
-    - [Recursive transclusion](#recursive-transclusion)
-    - [Updating relative path for links, images, code files](#updating-relative-path-for-links-images-codefiles)
-    - [Updating relative path for code files](#updating-relative-path-for-codefiles)
-  - [API](#api)
-  - [License](#license)
+- [Install](#install)
+- [Examples](#examples)
+  - [Transclusion or including markdown sub-documents for reuse](#transclusion-or-including-markdown-sub-documents-forreuse)
+  - [File name without extension](#file-name-withoutextension)
+  - [Recursive transclusion](#recursive-transclusion)
+  - [Updating relative path for links, images](#updating-relative-path-for-linksimages)
+  - [Updating relative path for code files](#updating-relative-path-for-codefiles)
+- [API](#api)
+- [License](#license)
 
 ## Install
 
@@ -155,29 +153,6 @@ in markdown main document with file name without extension.
 > [markdown-extensions](https://www.npmjs.com/package/markdown-extensions)
 > package.
 
-> [!IMPORTANT]
->
-> `remark-directive` plugin expected in remark pipeline before
-> `@it-service/remark-include`!
-
-```typescript file=test\examples\02\example.ts
-import { remark } from 'remark';
-import * as vFile from 'to-vfile';
-import remarkDirective from 'remark-directive';
-import remarkInclude from '#@it-service/remark-include';
-import type { VFile } from 'vfile';
-
-export async function remarkDirectiveUsingExample(
-  filePath: string
-): Promise<VFile> {
-  return remark()
-    .use(remarkDirective)
-    .use(remarkInclude)
-    .process(await vFile.read(filePath));
-};
-
-```
-
 Source files:
 
 main.md:
@@ -223,29 +198,6 @@ Hello. I am the `included2.markdown` file.
 
 `@it-service/remark-include` directive supported in included files.
 
-> [!IMPORTANT]
->
-> `remark-directive` plugin expected in remark pipeline before
-> `@it-service/remark-include`!
-
-```typescript file=test\examples\04\example.ts
-import { remark } from 'remark';
-import * as vFile from 'to-vfile';
-import remarkDirective from 'remark-directive';
-import remarkInclude from '#@it-service/remark-include';
-import type { VFile } from 'vfile';
-
-export async function remarkDirectiveUsingExample(
-  filePath: string
-): Promise<VFile> {
-  return remark()
-    .use(remarkDirective)
-    .use(remarkInclude)
-    .process(await vFile.read(filePath));
-};
-
-```
-
 Source files:
 
 main.md:
@@ -288,33 +240,10 @@ Hello. I am the included2.
 
 ```
 
-### Updating relative path for links, images, code files
+### Updating relative path for links, images
 
 Relative images and links in the imported files will have their paths rewritten
 to be relative the original document rather than the imported file.
-
-> [!IMPORTANT]
->
-> `remark-directive` plugin expected in remark pipeline before
-> `@it-service/remark-include`!
-
-```typescript file=test\examples\10\example.ts
-import { remark } from 'remark';
-import * as vFile from 'to-vfile';
-import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service/remark-include';
-import type { VFile } from 'vfile';
-
-export async function remarkDirectiveUsingExample(
-  filePath: string
-): Promise<VFile> {
-  return remark()
-    .use(remarkDirective)
-    .use(remarkInclude)
-    .process(await vFile.read(filePath));
-};
-
-```
 
 Source files:
 
