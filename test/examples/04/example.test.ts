@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import { remarkDirectiveUsingExample } from './example.ts';
 
 const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
-const testSnapshotsFilesPath: string = path.join(__dirname, '__snapshots__');
+const testSnapshotsFilesPath: string = path.join(__dirname, 'snapshots');
 
 describe('remark-include', () => {
 

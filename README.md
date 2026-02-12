@@ -70,6 +70,7 @@ to be relative the original document rather than the imported file.
     - [File name without extension](#file-name-withoutextension)
     - [Recursive transclusion](#recursive-transclusion)
     - [Updating relative path for links, images, code files](#updating-relative-path-for-links-images-codefiles)
+    - [Updating relative path for code files](#updating-relative-path-for-codefiles)
   - [API](#api)
   - [License](#license)
 
@@ -95,7 +96,7 @@ npm install --save-dev @it-service/remark-include
 > `remark-directive` plugin expected in remark pipeline before
 > `@it-service/remark-include`!
 
-```typescript file=./example.ts
+```typescript file=test\examples\01\example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
@@ -117,7 +118,7 @@ Source files:
 
 main.md:
 
-```markdown file=fixtures/main.md
+```markdown file=test\examples\01\fixtures\main.md
 Hello. I am an main markdown file with `::include` directive.
 
 ::include{file=./included.md}
@@ -128,13 +129,13 @@ _That_ should do it!
 
 included.md:
 
-```markdown file=fixtures/included.md
+```markdown file=test\examples\01\fixtures\included.md
 Hello. I am the included.
 ```
 
 Remark output:
 
-```markdown file=__snapshots__/output.md
+```markdown file=test\examples\01\snapshots\output.md
 Hello. I am an main markdown file with `::include` directive.
 
 Hello. I am the included.
@@ -159,7 +160,7 @@ in markdown main document with file name without extension.
 > `remark-directive` plugin expected in remark pipeline before
 > `@it-service/remark-include`!
 
-```typescript file=./example.ts
+```typescript file=test\examples\02\example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
@@ -181,7 +182,7 @@ Source files:
 
 main.md:
 
-```markdown file=fixtures/main.md
+```markdown file=test\examples\02\fixtures\main.md
 Hello. I am an main markdown file with `::include` directive.
 
 ::include{file=./included1}
@@ -194,20 +195,20 @@ _That_ should do it!
 
 included1.md:
 
-```markdown file=fixtures/included1.md
+```markdown file=test\examples\02\fixtures\included1.md
 Hello. I am the `included1.md` file.
 
 ```
 
 included2.markdown:
 
-```markdown file=fixtures/included2.markdown
+```markdown file=test\examples\02\fixtures\included2.markdown
 Hello. I am the `included2.markdown` file.
 ```
 
 Remark output:
 
-```markdown file=__snapshots__/output.md
+```markdown file=test\examples\02\snapshots\output.md
 Hello. I am an main markdown file with `::include` directive.
 
 Hello. I am the `included1.md` file.
@@ -227,7 +228,7 @@ Hello. I am the `included2.markdown` file.
 > `remark-directive` plugin expected in remark pipeline before
 > `@it-service/remark-include`!
 
-```typescript file=./example.ts
+```typescript file=test\examples\04\example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
@@ -249,7 +250,7 @@ Source files:
 
 main.md:
 
-```markdown file=fixtures/main.md
+```markdown file=test\examples\04\fixtures\main.md
 Hello. I am an main markdown file with `::include` directive.
 
 ::include{file=./included1.md}
@@ -260,7 +261,7 @@ _That_ should do it!
 
 included1.md:
 
-```markdown file=fixtures/included1.md
+```markdown file=test\examples\04\fixtures\included1.md
 Hello. I am the included1.
 
 ::include{file=./included2.md}
@@ -269,14 +270,14 @@ Hello. I am the included1.
 
 included2.md:
 
-```markdown file=fixtures/included2.md
+```markdown file=test\examples\04\fixtures\included2.md
 Hello. I am the included2.
 
 ```
 
 Remark output:
 
-```markdown file=__snapshots__/output.md
+```markdown file=test\examples\04\snapshots\output.md
 Hello. I am an main markdown file with `::include` directive.
 
 Hello. I am the included1.
@@ -297,7 +298,7 @@ to be relative the original document rather than the imported file.
 > `remark-directive` plugin expected in remark pipeline before
 > `@it-service/remark-include`!
 
-```typescript file=./example.ts
+```typescript file=test\examples\10\example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
@@ -319,7 +320,7 @@ Source files:
 
 main.md:
 
-```markdown file=fixtures/main.md
+```markdown file=test\examples\10\fixtures\main.md
 Hello. I am an main markdown file with `::include` directive.
 
 ::include{file=./subfolder1/included.md}
@@ -330,7 +331,7 @@ _That_ should do it!
 
 included.md:
 
-```markdown file=fixtures/subfolder1/included.md
+```markdown file=test\examples\10\fixtures\subfolder1\included.md
 Hello. I am the included. Test image:
 
 ![Test local image](test-image.png)
@@ -343,7 +344,7 @@ Hello. I am the included. Test image:
 
 Remark output:
 
-```markdown file=__snapshots__/output.md
+```markdown file=test\examples\10\fixtures\output.md
 Hello. I am an main markdown file with `::include` directive.
 
 Hello. I am the included. Test image:
@@ -357,6 +358,92 @@ Hello. I am the included. Test image:
 *That* should do it!
 
 ```
+
+### Updating relative path for code files
+
+Relative images and links in the imported files will have their paths rewritten
+to be relative the original document rather than the imported file.
+
+Source files:
+
+main.md:
+
+```markdown file=test\examples\11\fixtures\main.md
+Hello. I am an main markdown file with `::include` directive.
+
+::include{file=./subfolder1/included.md}
+
+_That_ should do it!
+
+```
+
+included.md:
+
+````markdown file=test\examples\11\fixtures\subfolder1\included.md
+Hello. I am the included. Test for code file path rebasing:
+
+```typescript file=../../example.ts
+import { remark } from 'remark';
+import * as vFile from 'to-vfile';
+import remarkDirective from 'remark-directive';
+import { remarkInclude } from '#@it-service/remark-include';
+import type { VFile } from 'vfile';
+
+export async function remarkDirectiveUsingExample(
+  filePath: string
+): Promise<VFile> {
+  return remark()
+    .use(remarkDirective)
+    .use(remarkInclude)
+    .process(await vFile.read(filePath));
+};
+
+```
+
+```typescript file=../../example.ts#L10-L13
+  return remark()
+    .use(remarkDirective)
+    .use(remarkInclude)
+    .process(await vFile.read(filePath));
+```
+
+````
+
+Remark output:
+
+````markdown file=test\examples\11\fixtures\output.md
+Hello. I am an main markdown file with `::include` directive.
+
+Hello. I am the included. Test for code file path rebasing:
+
+```typescript file=..\example.ts
+import { remark } from 'remark';
+import * as vFile from 'to-vfile';
+import remarkDirective from 'remark-directive';
+import { remarkInclude } from '#@it-service/remark-include';
+import type { VFile } from 'vfile';
+
+export async function remarkDirectiveUsingExample(
+  filePath: string
+): Promise<VFile> {
+  return remark()
+    .use(remarkDirective)
+    .use(remarkInclude)
+    .process(await vFile.read(filePath));
+};
+
+```
+
+```typescript file=..\example.ts#L10-L13
+  return remark()
+    .use(remarkDirective)
+    .use(remarkInclude)
+    .process(await vFile.read(filePath));
+```
+
+*That* should do it!
+
+````
 
 ## API
 

@@ -18,7 +18,7 @@ import { accessSync } from 'node:fs';
 import { asDefined, assertDefined, isDefined } from 'ts-runtime-typecheck';
 import markdownExtensions from 'markdown-extensions';
 import { type Transformer, type Plugin, type Processor } from 'unified';
-import { type Root, type Parent, type Resource } from 'mdast';
+import { type Root, type Parent, type Resource, type Code } from 'mdast';
 import { type LeafDirective } from 'mdast-util-directive';
 import { VFile } from 'vfile';
 import { readSync } from 'to-vfile';
@@ -59,7 +59,7 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
     };
     if (!isDefined(file.dirname)) {
       file.fail(
-        '::include, unexpected error: file.path undefined',
+        '::include, unexpected error: "file" should be an instance of VFile',
         node,
         '@it-service/remark-include'
       );
@@ -113,15 +113,13 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
           const includedFile: VFile = readSync(includedFilePath, 'utf-8');
           const includedAST: Root = unified.parse(includedFile) as Root;
 
-          function rebaseRelativePath(
+          function rebaseRelativeURL(
             node: Resource,
             _index?: number,
             _parent?: Parent
           ): void {
 
             if (isRelativeUrl(node.url, { allowProtocolRelative: false })) {
-              // eslint-disable-next-line max-len
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
               node.url = RelateUrl.relate(
                 url.pathToFileURL(file.path).href,
                 new URL(
@@ -132,9 +130,46 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
             };
           };
 
-          visit(includedAST, 'image', rebaseRelativePath);
-          visit(includedAST, 'link', rebaseRelativePath);
-          visit(includedAST, 'definition', rebaseRelativePath);
+          function rebaseRelativePathInCode(
+            node: Code,
+            _index?: number,
+            _parent?: Parent
+          ): void {
+            // console.info(node.meta);
+            const fileMeta: string | undefined = (node.meta ?? '')
+              // Allow escaping spaces
+              .split(/(?<!\\) /g)
+              .find((meta) => meta.startsWith('file='));
+            if (!isDefined(fileMeta)) {
+              return;
+            };
+            // eslint-disable-next-line max-len
+            const fileAttrRegExp = /^file=(?<path>.+?)(?:(?:#(?:L(?<from>\d+)(?<dash>-)?)?)(?:L(?<to>\d+))?)?$/;
+            const res = fileAttrRegExp.exec(fileMeta);
+            if (!res?.groups?.path) {
+              return;
+            }
+            const filePath = res.groups.path;
+            const normalizedFilePath = filePath
+              .replace(/\\ /g, ' ');
+            if (!path.isAbsolute(normalizedFilePath)) {
+              const rebasedFilePath = path.relative(
+                file.dirname!,
+                path.resolve(
+                  path.dirname(includedFilePath),
+                  normalizedFilePath
+                )
+              );
+              // eslint-disable-next-line max-len
+              node.meta = `file=${rebasedFilePath}${res.groups.from ? '#L' + res.groups.from : ''}${res.groups.to ? '-L' + res.groups.to : ''}`;
+            };
+          };
+
+          visit(includedAST, 'image', rebaseRelativeURL);
+          visit(includedAST, 'link', rebaseRelativeURL);
+          visit(includedAST, 'definition', rebaseRelativeURL);
+
+          visit(includedAST, 'code', rebaseRelativePathInCode);
 
           parent.children.splice(index, 1, ...includedAST.children);
         };

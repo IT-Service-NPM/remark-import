@@ -46,7 +46,7 @@ Hello. I am the included.
 
 Remark output:
 
-```markdown file=__snapshots__/output.md
+```markdown file=snapshots/output.md
 Hello. I am an main markdown file with `::include` directive.
 
 Hello. I am the included.
