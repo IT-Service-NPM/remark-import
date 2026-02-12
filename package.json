@@ -61,6 +61,7 @@
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
 	},
 	"dependencies": {
+		"@stdlib/utils-convert-path": "^0.2.3",
 		"is-relative-url": "^4.1.0",
 		"markdown-extensions": "^2.0.0",
 		"mdast": "^0.26.2",

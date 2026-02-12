@@ -2,7 +2,7 @@ Hello. I am an main markdown file with `::include` directive.
 
 Hello. I am the included. Test for code file path rebasing:
 
-```typescript file=..\example.ts
+```typescript file=../example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
@@ -20,7 +20,7 @@ export async function remarkDirectiveUsingExample(
 
 ```
 
-```typescript file=..\example.ts#L10-L13
+```typescript file=../example.ts#L10-L13
   return remark()
     .use(remarkDirective)
     .use(remarkInclude)

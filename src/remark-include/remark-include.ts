@@ -14,6 +14,7 @@ import * as path from 'node:path';
 import * as url from 'node:url';
 import RelateUrl from 'relateurl';
 import isRelativeUrl from 'is-relative-url';
+import convertPath from '@stdlib/utils-convert-path';
 import { accessSync } from 'node:fs';
 import { asDefined, assertDefined, isDefined } from 'ts-runtime-typecheck';
 import markdownExtensions from 'markdown-extensions';
@@ -170,12 +171,15 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
                   const normalizedFilePath = filePath
                     .replace(/\\ /g, ' ');
                   if (!path.isAbsolute(normalizedFilePath)) {
-                    const rebasedFilePath = path.relative(
-                      file.dirname!,
-                      path.resolve(
-                        path.dirname(includedFilePath),
-                        normalizedFilePath
-                      )
+                    const rebasedFilePath = convertPath(
+                      path.relative(
+                        file.dirname!,
+                        path.resolve(
+                          path.dirname(includedFilePath),
+                          normalizedFilePath
+                        )
+                      ),
+                      'posix'
                     );
                     // eslint-disable-next-line max-len
                     node.meta = `file=${rebasedFilePath}${res.groups.from ? '#L' + res.groups.from : ''}${res.groups.to ? '-L' + res.groups.to : ''}`;
