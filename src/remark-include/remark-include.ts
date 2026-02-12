@@ -127,59 +127,60 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
             const includedFile: VFile = readSync(includedFilePath, 'utf-8');
             const includedAST: Root = unified.parse(includedFile) as Root;
 
-            function rebaseRelativeURL(node: Resource): void {
-              if (isRelativeUrl(node.url, { allowProtocolRelative: false })) {
-                node.url = RelateUrl.relate(
-                  url.pathToFileURL(file.path).href,
-                  new URL(
-                    node.url,
-                    url.pathToFileURL(includedFilePath)
-                  ).href
-                );
-              };
-            };
-
-            function rebaseRelativePathInCode(node: Code): void {
-              const fileMeta: string | undefined = (node.meta ?? '')
-                // Allow escaping spaces
-                .split(/(?<!\\) /g)
-                .find((meta) => meta.startsWith('file='));
-              if (!isDefined(fileMeta)) {
-                return;
-              };
-              // eslint-disable-next-line max-len
-              const fileAttrRegExp = /^file=(?<path>.+?)(?:(?:#(?:L(?<from>\d+)(?<dash>-)?)?)(?:L(?<to>\d+))?)?$/;
-              const res = fileAttrRegExp.exec(fileMeta);
-              if (!res?.groups?.path) {
-                return;
-              }
-              const filePath = res.groups.path;
-              const normalizedFilePath = filePath
-                .replace(/\\ /g, ' ');
-              if (!path.isAbsolute(normalizedFilePath)) {
-                const rebasedFilePath = path.relative(
-                  file.dirname!,
-                  path.resolve(
-                    path.dirname(includedFilePath),
-                    normalizedFilePath
-                  )
-                );
-                // eslint-disable-next-line max-len
-                node.meta = `file=${rebasedFilePath}${res.groups.from ? '#L' + res.groups.from : ''}${res.groups.to ? '-L' + res.groups.to : ''}`;
-              };
-            };
-
-            visit(includedAST, 'image', rebaseRelativeURL);
-            visit(includedAST, 'link', rebaseRelativeURL);
-            visit(includedAST, 'definition', rebaseRelativeURL);
-
-            visit(includedAST, 'code', rebaseRelativePathInCode);
-
             let depthDelta: number | undefined;
-            visit(includedAST, 'heading',
-              function (node: Heading): void {
-                depthDelta ??= node.depth - depth - 1;
-                node.depth -= depthDelta;
+            visit(includedAST,
+              ['heading', 'image', 'link', 'definition', 'code'],
+              function (_node: Node): void {
+
+                if (is(_node, 'heading')) {
+                  const node: Heading = _node as Heading;
+                  depthDelta ??= node.depth - depth - 1;
+                  node.depth -= depthDelta;
+
+                } else if (is(_node, ['image', 'link', 'definition'])) {
+                  const node: Resource = _node as unknown as Resource;
+                  if (isRelativeUrl(node.url,
+                    { allowProtocolRelative: false })
+                  ) {
+                    node.url = RelateUrl.relate(
+                      url.pathToFileURL(file.path).href,
+                      new URL(
+                        node.url,
+                        url.pathToFileURL(includedFilePath)
+                      ).href
+                    );
+                  };
+
+                } else if (is(_node, 'code')) {
+                  const node: Code = _node as Code;
+                  const fileMeta: string | undefined = (node.meta ?? '')
+                    // Allow escaping spaces
+                    .split(/(?<!\\) /g)
+                    .find((meta) => meta.startsWith('file='));
+                  if (!isDefined(fileMeta)) {
+                    return;
+                  };
+                  // eslint-disable-next-line max-len
+                  const fileAttrRegExp = /^file=(?<path>.+?)(?:(?:#(?:L(?<from>\d+)(?<dash>-)?)?)(?:L(?<to>\d+))?)?$/;
+                  const res = fileAttrRegExp.exec(fileMeta);
+                  if (!res?.groups?.path) {
+                    return;
+                  }
+                  const filePath = res.groups.path;
+                  const normalizedFilePath = filePath
+                    .replace(/\\ /g, ' ');
+                  if (!path.isAbsolute(normalizedFilePath)) {
+                    const rebasedFilePath = path.relative(
+                      file.dirname!,
+                      path.resolve(
+                        path.dirname(includedFilePath),
+                        normalizedFilePath
+                      )
+                    );
+                    // eslint-disable-next-line max-len
+                    node.meta = `file=${rebasedFilePath}${res.groups.from ? '#L' + res.groups.from : ''}${res.groups.to ? '-L' + res.groups.to : ''}`;
+                  };
+                };
               }
             );
 
