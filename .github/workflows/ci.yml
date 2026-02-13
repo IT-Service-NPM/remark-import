@@ -102,6 +102,8 @@ jobs:
       - test
       - GitHub
     if: needs.GitHub.outputs.is-new-release == 'true'
+    environment: npm
+    runs-on: ubuntu-latest
     permissions:
       actions: read
       deployments: write
@@ -109,5 +111,16 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write
-    uses: IT-Service-NPM/.github/.github/workflows/deploy-to-npmJS.yml@main
-    secrets: inherit
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+      - name: Download package
+        uses: actions/download-artifact@v6
+        with:
+          name: package
+      - uses: JS-DevTools/npm-publish@v4
+        with:
+          access: 'public'
+          provenance: true
+          token: ${{ secrets.NPM_TOKEN }}

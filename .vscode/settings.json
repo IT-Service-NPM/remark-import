@@ -31,6 +31,7 @@
 	"coverage-gutters.showLineCoverage": true,
 	"coverage-gutters.showRulerCoverage": true,
 	"coverage-gutters.customizable.status-bar-toggler-watchCoverageAndVisibleEditors-enabled": true,
+	"conventionalCommits.showEditor": true,
 	"commit-message-editor.dynamicTemplate": [
 		"{type}{scope}: {description}",
 		"",
