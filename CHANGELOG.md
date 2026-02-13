@@ -16,30 +16,9 @@ All notable changes to this project will be documented in this file. See
 # [2.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v1.0.0...v2.0.0) (2026-02-13)
 
 
-### Bug Fixes
-
-* change scope to [@it-service-npm](https://github.com/it-service-npm) ([b2ed899](https://github.com/IT-Service-NPM/remark-include/commit/b2ed899a06a41f669968ce332ae02bbc250155e3))
-* change scope to `@IT-Service-NPM` ([8aa3877](https://github.com/IT-Service-NPM/remark-include/commit/8aa3877821b9d88d69954540f6fc597790a25a8e))
-
-
 ### BREAKING CHANGES
 
-* change scope to @it-service-npm
-
-# [1.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v0.1.0...v1.0.0) (2026-02-13)
-
-
-### Code Refactoring
-
-* **plugin:** rename scope to `@it-service-npm` ([ef694cb](https://github.com/IT-Service-NPM/remark-include/commit/ef694cb2fdba4617e36ed3dc587ba3ac1194a90a))
-
-
-### BREAKING CHANGES
-
-* **plugin:**
-
-# [0.1.0](https://github.com/IT-Service-NPM/remark-include/compare/v0.0.8...v0.1.0) (2026-02-12)
-
+* change scope to `@it-service-npm`
 
 ### Bug Fixes
 
