@@ -19,10 +19,7 @@ import { accessSync } from 'node:fs';
 import { asDefined, assertDefined, isDefined } from 'ts-runtime-typecheck';
 import markdownExtensions from 'markdown-extensions';
 import { type Transformer, type Plugin, type Processor } from 'unified';
-import {
-  type Node, type Root, type Parent, type Heading,
-  type Resource, type Code
-} from 'mdast';
+import type { Node, Root, Parent, Heading, Resource, Code } from 'mdast';
 import { type LeafDirective } from 'mdast-util-directive';
 import { VFile } from 'vfile';
 import { readSync } from 'to-vfile';
