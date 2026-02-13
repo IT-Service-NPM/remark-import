@@ -3,7 +3,9 @@
   "default": true,
   "line-length": false,
   "no-duplicate-heading": false,
-  "no-multiple-blanks": false
+  "no-multiple-blanks": false,
+  "heading-increment": false,
+  "single-title": false
 }
 -->
 # 📓 Changelog
@@ -16,7 +18,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Code Refactoring
 
-* **plugin:** rename scope to [@it-service-53](https://github.com/it-service-53) ([ef694cb](https://github.com/IT-Service-NPM/remark-include/commit/ef694cb2fdba4617e36ed3dc587ba3ac1194a90a))
+* **plugin:** rename scope to `@it-service-npm` ([ef694cb](https://github.com/IT-Service-NPM/remark-include/commit/ef694cb2fdba4617e36ed3dc587ba3ac1194a90a))
 
 
 ### BREAKING CHANGES

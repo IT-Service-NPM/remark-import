@@ -1,4 +1,4 @@
-# @it-service-53/remark-include Remark plugin
+# @it-service-npm/remark-include Remark plugin
 
 [![GitHub release][github-release]][github-release-url]
 [![NPM release][npm]][npm-url]
@@ -24,21 +24,21 @@
 
 [github-release-url]: https://github.com/IT-Service-NPM/remark-include/releases
 
-[npm]: https://img.shields.io/npm/v/@it-service-53/remark-include.svg?logo=npm
+[npm]: https://img.shields.io/npm/v/@it-service-npm/remark-include.svg?logo=npm
 
-[npm-url]: https://www.npmjs.com/package/@it-service-53/remark-include
+[npm-url]: https://www.npmjs.com/package/@it-service-npm/remark-include
 
-[node]: https://img.shields.io/node/v/@it-service-53/remark-include.svg
+[node]: https://img.shields.io/node/v/@it-service-npm/remark-include.svg
 
 [node-url]: https://nodejs.org
 
-[deps]: https://img.shields.io/librariesio/release/npm/@it-service-53/remark-include
+[deps]: https://img.shields.io/librariesio/release/npm/@it-service-npm/remark-include
 
-[deps-url]: https://libraries.io/npm/@it-service-53/remark-include/tree
+[deps-url]: https://libraries.io/npm/@it-service-npm/remark-include/tree
 
-[size]: https://packagephobia.com/badge?p=@it-service-53/remark-include
+[size]: https://packagephobia.com/badge?p=@it-service-npm/remark-include
 
-[size-url]: https://packagephobia.com/result?p=@it-service-53/remark-include
+[size-url]: https://packagephobia.com/result?p=@it-service-npm/remark-include
 
 [build]: https://github.com/IT-Service-NPM/remark-include/actions/workflows/ci.yml/badge.svg?branch=main
 
@@ -75,30 +75,30 @@ to be relative the original document rather than the imported file.
 ## Install
 
 ```sh
-npm install --save-dev @it-service-53/remark-include
+npm install --save-dev @it-service-npm/remark-include
 ```
 
 > [!IMPORTANT]
 >
 > `remark-directive` plugin expected in remark pipeline before
-> `@it-service-53/remark-include`!
+> `@it-service-npm/remark-include`!
 
 ## Examples
 
 ### Transclusion or including markdown sub-documents for reuse
 
-`@it-service-53/remark-include` can include sub-documents in markdown document.
+`@it-service-npm/remark-include` can include sub-documents in markdown document.
 
 > [!IMPORTANT]
 >
 > `remark-directive` plugin expected in remark pipeline before
-> `@it-service-53/remark-include`!
+> `@it-service-npm/remark-include`!
 
 ```typescript file=test/examples/01/example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import remarkInclude from '#@it-service-53/remark-include';
+import remarkInclude from '#@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(
@@ -144,7 +144,7 @@ Hello. I am the included.
 
 ### File name without extension
 
-`@it-service-53/remark-include` can include sub-documents
+`@it-service-npm/remark-include` can include sub-documents
 in markdown main document with file name without extension.
 
 > [!TIP]
@@ -196,7 +196,7 @@ Hello. I am the `included2.markdown` file.
 
 ### Recursive transclusion
 
-`@it-service-53/remark-include` directive supported in included files.
+`@it-service-npm/remark-include` directive supported in included files.
 
 Source files:
 
@@ -315,7 +315,7 @@ Hello. I am the included. Test for code file path rebasing:
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-53/remark-include';
+import { remarkInclude } from '#@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(
@@ -349,7 +349,7 @@ Hello. I am the included. Test for code file path rebasing:
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-53/remark-include';
+import { remarkInclude } from '#@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(

@@ -1,4 +1,4 @@
-# @it-service-53/remark-include Remark plugin
+# @it-service-npm/remark-include Remark plugin
 
 [![GitHub release][github-release]][github-release-url]
 [![NPM release][npm]][npm-url]
@@ -24,21 +24,21 @@
 
 [github-release-url]: https://github.com/IT-Service-NPM/remark-include/releases
 
-[npm]: https://img.shields.io/npm/v/@it-service-53/remark-include.svg?logo=npm
+[npm]: https://img.shields.io/npm/v/@it-service-npm/remark-include.svg?logo=npm
 
-[npm-url]: https://www.npmjs.com/package/@it-service-53/remark-include
+[npm-url]: https://www.npmjs.com/package/@it-service-npm/remark-include
 
-[node]: https://img.shields.io/node/v/@it-service-53/remark-include.svg
+[node]: https://img.shields.io/node/v/@it-service-npm/remark-include.svg
 
 [node-url]: https://nodejs.org
 
-[deps]: https://img.shields.io/librariesio/release/npm/@it-service-53/remark-include
+[deps]: https://img.shields.io/librariesio/release/npm/@it-service-npm/remark-include
 
-[deps-url]: https://libraries.io/npm/@it-service-53/remark-include/tree
+[deps-url]: https://libraries.io/npm/@it-service-npm/remark-include/tree
 
-[size]: https://packagephobia.com/badge?p=@it-service-53/remark-include
+[size]: https://packagephobia.com/badge?p=@it-service-npm/remark-include
 
-[size-url]: https://packagephobia.com/result?p=@it-service-53/remark-include
+[size-url]: https://packagephobia.com/result?p=@it-service-npm/remark-include
 
 [build]: https://github.com/IT-Service-NPM/remark-include/actions/workflows/ci.yml/badge.svg?branch=main
 
@@ -62,7 +62,7 @@ to be relative the original document rather than the imported file.
 
 ## Contents
 
-- [@it-service-53/remark-include Remark plugin](#it-service-53remark-include-remark-plugin)
+- [@it-service-npm/remark-include Remark plugin](#it-service-npmremark-include-remark-plugin)
   - [Contents](#contents)
   - [Install](#install)
   - [Examples](#examples)
@@ -72,11 +72,11 @@ to be relative the original document rather than the imported file.
 ## Install
 
 ```sh
-npm install --save-dev @it-service-53/remark-include
+npm install --save-dev @it-service-npm/remark-include
 ```
 
 `remark-directive` plugin expected before
-`@it-service-53/remark-include`!
+`@it-service-npm/remark-include`!
 
 ## Examples
 

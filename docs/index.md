@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@it-service-53/remark-include](./remark-include.md)
+[@it-service-npm/remark-include](./remark-include.md)
 
 
 </td><td>

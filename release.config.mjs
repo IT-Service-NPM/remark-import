@@ -39,7 +39,9 @@ export default {
   "default": true,
   "line-length": false,
   "no-duplicate-heading": false,
-  "no-multiple-blanks": false
+  "no-multiple-blanks": false,
+  "heading-increment": false,
+  "single-title": false
 }
 -->
 # 📓 Changelog

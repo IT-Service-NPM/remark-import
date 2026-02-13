@@ -1,6 +1,6 @@
 # Adjust the heading levels
 
-`@it-service-53/remark-include` adjust the heading levels within the included content.
+`@it-service-npm/remark-include` adjust the heading levels within the included content.
 
 Source files:
 
@@ -16,6 +16,7 @@ Hello. I am an main markdown file with `::include` directive.
 ## in main file
 
 _That_ should do it!
+
 ```
 
 included1.md:
@@ -32,6 +33,7 @@ Hello. I am the included1.
 ## in included 1 file after included2
 
 text text text.
+
 ```
 
 included2.md:
@@ -40,6 +42,7 @@ included2.md:
 # included2 file
 
 Hello. I am the included2.
+
 ```
 
 Remark output:
@@ -66,4 +69,5 @@ text text text.
 ## in main file
 
 *That* should do it!
+
 ```

@@ -1,17 +1,17 @@
 # Transclusion or including markdown sub-documents for reuse
 
-`@it-service-53/remark-include` can include sub-documents in markdown document.
+`@it-service-npm/remark-include` can include sub-documents in markdown document.
 
-> \[!IMPORTANT]
+> [!IMPORTANT]
 >
 > `remark-directive` plugin expected in remark pipeline before
-> `@it-service-53/remark-include`!
+> `@it-service-npm/remark-include`!
 
 ```typescript file=./example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import remarkInclude from '#@it-service-53/remark-include';
+import remarkInclude from '#@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(
@@ -22,6 +22,7 @@ export async function remarkDirectiveUsingExample(
     .use(remarkInclude)
     .process(await vFile.read(filePath));
 };
+
 ```
 
 Source files:
@@ -34,6 +35,7 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./included.md}
 
 _That_ should do it!
+
 ```
 
 included.md:
@@ -50,4 +52,5 @@ Hello. I am an main markdown file with `::include` directive.
 Hello. I am the included.
 
 *That* should do it!
+
 ```

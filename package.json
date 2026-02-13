@@ -1,5 +1,5 @@
 {
-	"name": "@it-service-53/remark-include",
+	"name": "@it-service-npm/remark-include",
 	"type": "module",
 	"version": "1.0.0",
 	"description": "Add transclusion recursive ability `::include{file=other-file.md}`.",
@@ -43,7 +43,7 @@
 		}
 	},
 	"imports": {
-		"#@it-service-53/remark-include": "./src/index.ts"
+		"#@it-service-npm/remark-include": "./src/index.ts"
 	},
 	"files": [
 		"dist"
@@ -85,7 +85,7 @@
 		"@commitlint/types": "^20.2.0",
 		"@eslint/eslintrc": "^3.1.0",
 		"@eslint/js": "^9.13.0",
-		"@it-service-53/remark-include": "file:",
+		"@it-service-npm/remark-include": "file:",
 		"@microsoft/api-documenter": "^7.26.0",
 		"@microsoft/api-extractor": "^7.48.0",
 		"@semantic-release/changelog": "^6.0.3",

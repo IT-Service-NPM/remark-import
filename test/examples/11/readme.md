@@ -13,6 +13,7 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./subfolder1/included.md}
 
 _That_ should do it!
+
 ```
 
 included.md:
@@ -24,7 +25,7 @@ Hello. I am the included. Test for code file path rebasing:
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-53/remark-include';
+import { remarkInclude } from '#@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(
@@ -44,6 +45,7 @@ export async function remarkDirectiveUsingExample(
     .use(remarkInclude)
     .process(await vFile.read(filePath));
 ```
+
 ````
 
 Remark output:
@@ -57,7 +59,7 @@ Hello. I am the included. Test for code file path rebasing:
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-53/remark-include';
+import { remarkInclude } from '#@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(
@@ -79,4 +81,5 @@ export async function remarkDirectiveUsingExample(
 ```
 
 *That* should do it!
+
 ````

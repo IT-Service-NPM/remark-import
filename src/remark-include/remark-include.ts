@@ -58,14 +58,14 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
       file.fail(
         '::include, `file` attribute expected',
         node,
-        '@it-service-53/remark-include'
+        '@it-service-npm/remark-include'
       );
     };
     if (!isDefined(file.dirname)) {
       file.fail(
         '::include, unexpected error: "file" should be an instance of VFile',
         node,
-        '@it-service-53/remark-include'
+        '@it-service-npm/remark-include'
       );
     };
 
@@ -93,13 +93,13 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
         file.info(
           `::include, file not found - "${includedFilePath}"`,
           node,
-          '@it-service-53/remark-include'
+          '@it-service-npm/remark-include'
         );
       } else {
         file.fail(
           `::include, file not found - "${includedFilePath}"`,
           node,
-          '@it-service-53/remark-include'
+          '@it-service-npm/remark-include'
         );
       };
       return;
