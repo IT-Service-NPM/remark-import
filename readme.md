@@ -52,6 +52,9 @@
 
 [coverage-url]: https://github.com/IT-Service-NPM/remark-include/actions/workflows/ci.yml
 
+With this plugin, you can use `::include{file=./included.md}`
+statements to compose markdown files together.
+
 This plugin is a modern version of
 [`remark-import`](https://github.com/BrekiTomasson/remark-import) plugin
 and [`remark-include`](https://github.com/Qard/remark-include) plugin,
@@ -59,6 +62,11 @@ written in Typescript, and compatible with Remark v15.
 
 Relative images and links in the imported files will have their paths rewritten
 to be relative the original document rather than the imported file.
+
+An imported markdown file will "inherit" the heading levels.
+If the import statement happens under Heading 2, for example,
+any heading 1 in the imported file
+will be "translated" to have header level 3.
 
 ## Contents
 
