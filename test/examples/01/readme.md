@@ -2,7 +2,7 @@
 
 `@it-service-53/remark-include` can include sub-documents in markdown document.
 
-> [!IMPORTANT]
+> \[!IMPORTANT]
 >
 > `remark-directive` plugin expected in remark pipeline before
 > `@it-service-53/remark-include`!
@@ -22,7 +22,6 @@ export async function remarkDirectiveUsingExample(
     .use(remarkInclude)
     .process(await vFile.read(filePath));
 };
-
 ```
 
 Source files:
@@ -35,7 +34,6 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./included.md}
 
 _That_ should do it!
-
 ```
 
 included.md:
@@ -52,5 +50,4 @@ Hello. I am an main markdown file with `::include` directive.
 Hello. I am the included.
 
 *That* should do it!
-
 ```
