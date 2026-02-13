@@ -11,6 +11,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v0.1.0...v1.0.0) (2026-02-13)
+
+
+### Code Refactoring
+
+* **plugin:** rename scope to [@it-service-53](https://github.com/it-service-53) ([ef694cb](https://github.com/IT-Service-NPM/remark-include/commit/ef694cb2fdba4617e36ed3dc587ba3ac1194a90a))
+
+
+### BREAKING CHANGES
+
+* **plugin:**
+
 # [0.1.0](https://github.com/IT-Service-NPM/remark-include/compare/v0.0.8...v0.1.0) (2026-02-12)
 
 

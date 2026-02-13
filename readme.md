@@ -78,10 +78,8 @@ to be relative the original document rather than the imported file.
 npm install --save-dev @it-service-53/remark-include
 ```
 
-> [!IMPORTANT]
->
-> `remark-directive` plugin expected in remark pipeline before
-> `@it-service-53/remark-include`!
+`remark-directive` plugin expected before
+`@it-service-53/remark-include`!
 
 ## Examples
 
@@ -89,7 +87,7 @@ npm install --save-dev @it-service-53/remark-include
 
 `@it-service-53/remark-include` can include sub-documents in markdown document.
 
-> [!IMPORTANT]
+> \[!IMPORTANT]
 >
 > `remark-directive` plugin expected in remark pipeline before
 > `@it-service-53/remark-include`!
@@ -109,7 +107,6 @@ export async function remarkDirectiveUsingExample(
     .use(remarkInclude)
     .process(await vFile.read(filePath));
 };
-
 ```
 
 Source files:
@@ -122,7 +119,6 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./included.md}
 
 _That_ should do it!
-
 ```
 
 included.md:
@@ -139,7 +135,6 @@ Hello. I am an main markdown file with `::include` directive.
 Hello. I am the included.
 
 *That* should do it!
-
 ```
 
 ### File name without extension
@@ -147,7 +142,7 @@ Hello. I am the included.
 `@it-service-53/remark-include` can include sub-documents
 in markdown main document with file name without extension.
 
-> [!TIP]
+> \[!TIP]
 >
 > For extension list used
 > [markdown-extensions](https://www.npmjs.com/package/markdown-extensions)
@@ -165,14 +160,12 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./included2}
 
 _That_ should do it!
-
 ```
 
 included1.md:
 
 ```markdown file=test/examples/02/fixtures/included1.md
 Hello. I am the `included1.md` file.
-
 ```
 
 included2.markdown:
@@ -191,7 +184,6 @@ Hello. I am the `included1.md` file.
 Hello. I am the `included2.markdown` file.
 
 *That* should do it!
-
 ```
 
 ### Recursive transclusion
@@ -208,7 +200,6 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./included1.md}
 
 _That_ should do it!
-
 ```
 
 included1.md:
@@ -217,14 +208,12 @@ included1.md:
 Hello. I am the included1.
 
 ::include{file=./included2.md}
-
 ```
 
 included2.md:
 
 ```markdown file=test/examples/04/fixtures/included2.md
 Hello. I am the included2.
-
 ```
 
 Remark output:
@@ -237,7 +226,6 @@ Hello. I am the included1.
 Hello. I am the included2.
 
 *That* should do it!
-
 ```
 
 ### Updating relative path for links, images
@@ -255,7 +243,6 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./subfolder1/included.md}
 
 _That_ should do it!
-
 ```
 
 included.md:
@@ -268,7 +255,6 @@ Hello. I am the included. Test image:
 ![Test local image with space](test%20image.png)
 
 ![Test web image](https://img.shields.io/badge/github-repo-blue?logo=github)
-
 ```
 
 Remark output:
@@ -285,7 +271,6 @@ Hello. I am the included. Test image:
 ![Test web image](https://img.shields.io/badge/github-repo-blue?logo=github)
 
 *That* should do it!
-
 ```
 
 ### Updating relative path for code files
@@ -303,7 +288,6 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./subfolder1/included.md}
 
 _That_ should do it!
-
 ```
 
 included.md:
@@ -335,7 +319,6 @@ export async function remarkDirectiveUsingExample(
     .use(remarkInclude)
     .process(await vFile.read(filePath));
 ```
-
 ````
 
 Remark output:
@@ -371,7 +354,6 @@ export async function remarkDirectiveUsingExample(
 ```
 
 *That* should do it!
-
 ````
 
 ## API
