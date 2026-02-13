@@ -13,7 +13,6 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./subfolder1/included.md}
 
 _That_ should do it!
-
 ```
 
 included.md:
@@ -45,7 +44,6 @@ export async function remarkDirectiveUsingExample(
     .use(remarkInclude)
     .process(await vFile.read(filePath));
 ```
-
 ````
 
 Remark output:
@@ -81,5 +79,4 @@ export async function remarkDirectiveUsingExample(
 ```
 
 *That* should do it!
-
 ````
