@@ -56,7 +56,7 @@
 		"test": "vitest run --coverage",
 		"update-readme-API": "npx api-extractor run --local && npx api-documenter markdown -i ./temp -o ./docs",
 		"update-examples-readme": "remark test/examples/*/readme.md --output",
-		"update-main-readme": "remark readme.src.md --output readme.md",
+		"update-main-readme": "remark readme.src.md --output README.md",
 		"update-readme": "npm run update-examples-readme && npm run update-main-readme",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
 	},

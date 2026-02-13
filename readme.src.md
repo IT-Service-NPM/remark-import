@@ -62,7 +62,7 @@ to be relative the original document rather than the imported file.
 
 ## Contents
 
-- [@it-service-53/remark-include Remark plugin](#it-serviceremark-include-remark-plugin)
+- [@it-service-53/remark-include Remark plugin](#it-service-53remark-include-remark-plugin)
   - [Contents](#contents)
   - [Install](#install)
   - [Examples](#examples)
