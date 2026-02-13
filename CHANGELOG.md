@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.0...v2.0.1) (2026-02-13)
+
+
+### Bug Fixes
+
+* remove mdast dependency ([cd8a00e](https://github.com/IT-Service-NPM/remark-include/commit/cd8a00efd2bbcdb9a3dbd8dd5148b51c3b5f68c7))
+
 # [2.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v1.0.0...v2.0.0) (2026-02-13)
 
 
