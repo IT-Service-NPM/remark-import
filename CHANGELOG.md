@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.1...v2.0.2) (2026-02-13)
+
+
+### Bug Fixes
+
+* remove runtime deps ([9c09a97](https://github.com/IT-Service-NPM/remark-include/commit/9c09a97b0bdd5b3f9246a9ed00115277753a506f))
+
 ## [2.0.1](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.0...v2.0.1) (2026-02-13)
 
 
