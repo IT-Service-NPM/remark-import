@@ -1,6 +1,6 @@
 # Adjust the heading levels
 
-`@it-service/remark-include` adjust the heading levels within the included content.
+`@it-service-53/remark-include` adjust the heading levels within the included content.
 
 Source files:
 

@@ -1,17 +1,17 @@
 # Transclusion or including markdown sub-documents for reuse
 
-`@it-service/remark-include` can include sub-documents in markdown document.
+`@it-service-53/remark-include` can include sub-documents in markdown document.
 
 > [!IMPORTANT]
 >
 > `remark-directive` plugin expected in remark pipeline before
-> `@it-service/remark-include`!
+> `@it-service-53/remark-include`!
 
 ```typescript file=./example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import remarkInclude from '#@it-service/remark-include';
+import remarkInclude from '#@it-service-53/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(

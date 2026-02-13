@@ -1,6 +1,6 @@
 # Recursive transclusion
 
-`@it-service/remark-include` directive supported in included files.
+`@it-service-53/remark-include` directive supported in included files.
 
 Source files:
 

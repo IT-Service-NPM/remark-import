@@ -1,6 +1,6 @@
 # File name without extension
 
-`@it-service/remark-include` can include sub-documents
+`@it-service-53/remark-include` can include sub-documents
 in markdown main document with file name without extension.
 
 > [!TIP]
