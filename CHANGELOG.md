@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.3...v2.0.4) (2026-02-14)
+
+
+### Bug Fixes
+
+* remove dev deps mdast ([f1c8321](https://github.com/IT-Service-NPM/remark-include/commit/f1c83219201a0c783bdfea5594a9db03c34d2f14))
+
 ## [2.0.3](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.2...v2.0.3) (2026-02-13)
 
 
