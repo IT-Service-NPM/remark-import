@@ -3,6 +3,18 @@ name: Lint source code, documentation
 on:
 
   workflow_dispatch:
+    inputs:
+      log-level:
+        required: false
+        type: choice
+        options:
+          - ERROR
+          - WARN
+          - NOTICE
+          - INFO
+          - DEBUG
+        default: INFO
+        description: How much output the script will generate to the console
 
   workflow_call:
 
@@ -15,4 +27,6 @@ jobs:
       pull-requests: write
       statuses: write
     uses: IT-Service-NPM/.github/.github/workflows/lint.yml@main
+    with:
+      log-level: ${{ inputs.log-level }}
     secrets: inherit
