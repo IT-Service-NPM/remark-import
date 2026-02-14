@@ -64,8 +64,8 @@ Relative images and links in the imported files will have their paths rewritten
 to be relative the original document rather than the imported file.
 
 An imported markdown file will "inherit" the heading levels.
-If the import statement happens under Heading 2, for example,
-any heading 1 in the imported file
+If the `::include{file=./included.md}` statement happens under Heading 2,
+for example, any heading 1 in the included file
 will be "translated" to have header level 3.
 
 ## Contents
