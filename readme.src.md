@@ -34,7 +34,7 @@
 
 [deps]: https://img.shields.io/librariesio/release/npm/@it-service-npm/remark-include
 
-[deps-url]: https://libraries.io/npm/@it-service-npm/remark-include/tree
+[deps-url]: https://libraries.io/npm/@it-service-npm%2Fremark-include
 
 [size]: https://packagephobia.com/badge?p=@it-service-npm/remark-include
 
