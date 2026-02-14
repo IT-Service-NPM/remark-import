@@ -1,6 +1,7 @@
 // @ts-check
 
 import eslint from '@eslint/js';
+import n from 'eslint-plugin-n';
 import tsEslint from 'typescript-eslint';
 import tsdoc from "eslint-plugin-tsdoc";
 import vitest from "@vitest/eslint-plugin";
@@ -55,11 +56,11 @@ export default [
   },
   {
     files: [
-      "src/**/*.ts",
-      "src/**/*.tsx"
+      "src/**/*.ts"
     ],
     plugins: {
       tsdoc,
+      n
     },
     rules: {
       "no-unused-vars": "off",
@@ -68,6 +69,9 @@ export default [
       "@typescript-eslint/no-unused-vars": ['error', {
         'argsIgnorePattern': '^_|^(resolve|reject|err)$'
       }],
+      "n/no-missing-import": ["error", {
+        "ignoreTypeImport": true
+      }]
     },
   },
   {
