@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.5](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.4...v2.0.5) (2026-02-15)
+
+
+### Bug Fixes
+
+* if file not found, remove directive ([6100f4b](https://github.com/IT-Service-NPM/remark-include/commit/6100f4be43750ff0184beffdcdd2d5bd5c939722))
+
 ## [2.0.4](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.3...v2.0.4) (2026-02-14)
 
 
