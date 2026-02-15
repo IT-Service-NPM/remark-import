@@ -63,7 +63,6 @@ import remarkDirective from 'remark-directive';
 import { remarkInclude } from '#@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 ```
-
 ````
 
 Remark output:

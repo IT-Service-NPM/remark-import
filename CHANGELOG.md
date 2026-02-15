@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.5...v2.0.6) (2026-02-15)
+
+
+### Bug Fixes
+
+* fix code file path with spaces escaping ([331ead8](https://github.com/IT-Service-NPM/remark-include/commit/331ead838b1581a7802667c10f4f7e43635277c9))
+
 ## [2.0.5](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.4...v2.0.5) (2026-02-15)
 
 

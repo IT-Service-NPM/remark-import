@@ -2,7 +2,7 @@
 
 `@it-service-npm/remark-include` can include sub-documents in markdown document.
 
-> [!IMPORTANT]
+> \[!IMPORTANT]
 >
 > `remark-directive` plugin expected in remark pipeline before
 > `@it-service-npm/remark-include`!

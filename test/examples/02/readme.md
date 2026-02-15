@@ -3,7 +3,7 @@
 `@it-service-npm/remark-include` can include sub-documents
 in markdown main document with file name without extension.
 
-> [!TIP]
+> \[!TIP]
 >
 > For extension list used
 > [markdown-extensions](https://www.npmjs.com/package/markdown-extensions)
