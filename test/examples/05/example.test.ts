@@ -7,22 +7,24 @@ const testSnapshotsFilesPath: string = path.join(__dirname, 'snapshots');
 
 describe('remark-include', () => {
 
-  it('must support include directive in included files', async () => {
-    const _cwd = process.cwd();
-    try {
-      process.chdir(__dirname);
+  it('adjust the heading levels within the included content',
+    async () => {
+      const _cwd = process.cwd();
+      try {
+        process.chdir(__dirname);
 
-      const outputFile = await remarkDirectiveUsingExample(
-        path.join(testSrcFilesPath, 'main.md')
-      );
+        const outputFile = await remarkDirectiveUsingExample(
+          path.join(testSrcFilesPath, 'main.md')
+        );
 
-      await expect(String(outputFile))
-        .toMatchFileSnapshot(path.join(testSnapshotsFilesPath, 'output.md'));
+        await expect(String(outputFile))
+          .toMatchFileSnapshot(path.join(testSnapshotsFilesPath, 'output.md'));
 
-    } finally {
-      process.chdir(_cwd);
-    };
+      } finally {
+        process.chdir(_cwd);
+      };
 
-  });
+    }
+  );
 
 });
