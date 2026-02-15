@@ -1,5 +1,5 @@
 Hello. I am an main markdown file with `::include` directive.
 
-::include{file=./does-not-exists.md}
+::include{}
 
 _That_ should do it!
