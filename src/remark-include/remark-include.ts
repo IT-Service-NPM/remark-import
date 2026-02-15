@@ -161,26 +161,25 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
                   // eslint-disable-next-line max-len
                   const fileAttrRegExp = /^file=(?<path>.+?)(?:(?:#(?:L(?<from>\d+)(?<dash>-)?)?)(?:L(?<to>\d+))?)?$/;
                   const res = fileAttrRegExp.exec(fileMeta);
-                  if (!res?.groups?.path) {
-                    return;
+                  if (res?.groups?.path) {
+                    const filePath = res.groups.path;
+                    const normalizedFilePath = filePath
+                      .replace(/\\ /g, ' ');
+                    if (!path.isAbsolute(normalizedFilePath)) {
+                      const rebasedFilePath = convertPath(
+                        path.relative(
+                          file.dirname!,
+                          path.resolve(
+                            path.dirname(includedFilePath),
+                            normalizedFilePath
+                          )
+                        ),
+                        'posix'
+                      );
+                      // eslint-disable-next-line max-len
+                      node.meta = `file=${rebasedFilePath}${res.groups.from ? '#L' + res.groups.from : ''}${res.groups.to ? '-L' + res.groups.to : ''}`;
+                    };
                   }
-                  const filePath = res.groups.path;
-                  const normalizedFilePath = filePath
-                    .replace(/\\ /g, ' ');
-                  if (!path.isAbsolute(normalizedFilePath)) {
-                    const rebasedFilePath = convertPath(
-                      path.relative(
-                        file.dirname!,
-                        path.resolve(
-                          path.dirname(includedFilePath),
-                          normalizedFilePath
-                        )
-                      ),
-                      'posix'
-                    );
-                    // eslint-disable-next-line max-len
-                    node.meta = `file=${rebasedFilePath}${res.groups.from ? '#L' + res.groups.from : ''}${res.groups.to ? '-L' + res.groups.to : ''}`;
-                  };
                 };
               }
             );
