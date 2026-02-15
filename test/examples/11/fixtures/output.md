@@ -27,6 +27,15 @@ export async function remarkDirectiveUsingExample(
     .process(await vFile.read(filePath));
 ```
 
+Code with file path with spaces:
+
+```typescript file=subfolder1/code\ with\ spaces.ts#L10-L13
+  return remark()
+    .use(remarkDirective)
+    .use(remarkInclude)
+    .process(await vFile.read(filePath));
+```
+
 And code without file attribute:
 
 ```typescript

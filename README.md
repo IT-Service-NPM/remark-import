@@ -63,11 +63,10 @@ written in Typescript, and compatible with Remark v15.
 Relative images and links in the imported files will have their paths rewritten
 to be relative the original document rather than the imported file.
 
-An imported markdown file will "inherit" the heading levels.
-If the `::include{file=./included.md}` statement happens under Heading 2,
-for example, any heading 1 in the included file
-will be "translated" to have header level 3.
-
+An imported markdown file will “inherit” the heading levels.
+If the `::include{file=./included.md}` statement happens under Heading 2,
+for example, any heading 1 in the included file
+will be “translated” to have header level 3.
 
 ## Contents
 
@@ -345,6 +344,25 @@ export async function remarkDirectiveUsingExample(
     .process(await vFile.read(filePath));
 ```
 
+Code with file path with spaces:
+
+```typescript file=code\ with\ spaces.ts#L10-L13
+  return remark()
+    .use(remarkDirective)
+    .use(remarkInclude)
+    .process(await vFile.read(filePath));
+```
+
+And code without file attribute:
+
+```typescript
+import { remark } from 'remark';
+import * as vFile from 'to-vfile';
+import remarkDirective from 'remark-directive';
+import { remarkInclude } from '#@it-service-npm/remark-include';
+import type { VFile } from 'vfile';
+```
+
 ````
 
 Remark output:
@@ -377,6 +395,25 @@ export async function remarkDirectiveUsingExample(
     .use(remarkDirective)
     .use(remarkInclude)
     .process(await vFile.read(filePath));
+```
+
+Code with file path with spaces:
+
+```typescript file=subfolder1/code\ with\ spaces.ts#L10-L13
+  return remark()
+    .use(remarkDirective)
+    .use(remarkInclude)
+    .process(await vFile.read(filePath));
+```
+
+And code without file attribute:
+
+```typescript
+import { remark } from 'remark';
+import * as vFile from 'to-vfile';
+import remarkDirective from 'remark-directive';
+import { remarkInclude } from '#@it-service-npm/remark-include';
+import type { VFile } from 'vfile';
 ```
 
 *That* should do it!
