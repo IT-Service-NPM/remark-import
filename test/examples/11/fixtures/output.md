@@ -27,4 +27,14 @@ export async function remarkDirectiveUsingExample(
     .process(await vFile.read(filePath));
 ```
 
+And code without file attribute:
+
+```typescript
+import { remark } from 'remark';
+import * as vFile from 'to-vfile';
+import remarkDirective from 'remark-directive';
+import { remarkInclude } from '#@it-service-npm/remark-include';
+import type { VFile } from 'vfile';
+```
+
 *That* should do it!
