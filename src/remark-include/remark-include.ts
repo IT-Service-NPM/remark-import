@@ -176,9 +176,10 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
                         ),
                         'posix'
                       );
-                      // eslint-disable-next-line max-len
-                      node.meta = `file=${rebasedFilePath}${res.groups.from ? '#L' + res.groups.from : ''}${res.groups.to ? '-L' + res.groups.to : ''}`
-                        .replace(/ /g, '\\ ');
+                      node.meta =
+                        'file=' + rebasedFilePath.replace(/ /g, '\\ ') +
+                        (res.groups.from ? '#L' + res.groups.from : '') +
+                        (res.groups.to ? '-L' + res.groups.to : '');
                     };
                   }
                 };
