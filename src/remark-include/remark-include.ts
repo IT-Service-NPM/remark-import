@@ -149,7 +149,7 @@ export const remarkInclude: Plugin<[], Root> = function (): Transformer<Root> {
                     );
                   };
 
-                } else if (is(_node, 'code')) {
+                } else { // if (is(_node, 'code')) {
                   const node: Code = _node as Code;
                   const fileMeta: string | undefined = (node.meta ?? '')
                     // Allow escaping spaces
