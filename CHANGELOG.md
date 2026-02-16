@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/IT-Service-NPM/remark-include/compare/v3.0.0...v3.1.0) (2026-02-16)
+
+
+### Features
+
+* fix url in all Resource node ([e88accc](https://github.com/IT-Service-NPM/remark-include/commit/e88accce5de75a7eb3f99b4fdf54a96e0a91bbdc))
+
 # [3.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.6...v3.0.0) (2026-02-16)
 
 

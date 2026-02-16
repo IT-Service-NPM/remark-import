@@ -1,7 +1,7 @@
 {
 	"name": "@it-service-npm/remark-include",
 	"type": "module",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Add transclusion recursive ability `::include{file=other-file.md}`.",
 	"keywords": [
 		"markdown",
