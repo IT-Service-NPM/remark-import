@@ -5,7 +5,7 @@ in markdown main document with file name without extension.
 
 In this example used async plugin `remarkInclude`.
 
-> [!TIP]
+> \[!TIP]
 >
 > For extension list used
 > [markdown-extensions](https://www.npmjs.com/package/markdown-extensions)
@@ -28,7 +28,6 @@ export async function remarkDirectiveUsingExample(
     .use(remarkInclude)
     .process(await vFile.read(filePath));
 };
-
 ```
 
 main.md:
