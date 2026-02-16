@@ -90,15 +90,7 @@ npm install --save-dev @it-service-npm/remark-include
 
 ## Examples
 
-::include{file=test/examples/01/readme.md}
-
-::include{file=test/examples/02/readme.md}
-
-::include{file=test/examples/04/readme.md}
-
-::include{file=test/examples/10/readme.md}
-
-::include{file=test/examples/11/readme.md}
+::include{file=test/examples/**/readme.md}
 
 ## API
 

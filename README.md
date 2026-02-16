@@ -77,8 +77,9 @@ will be “translated” to have header level 3.
   - [Install](#install)
   - [Examples](#examples)
     - [Transclusion or including markdown sub-documents for reuse](#transclusion-or-including-markdown-sub-documents-forreuse)
-    - [File name without extension](#file-name-withoutextension)
     - [Recursive transclusion](#recursive-transclusion)
+    - [Adjust the heading levels](#adjust-the-headinglevels)
+    - [Include multiple files with glob](#include-multiple-files-withglob)
     - [Updating relative path for links, images](#updating-relative-path-for-linksimages)
     - [Updating relative path for code files](#updating-relative-path-for-codefiles)
   - [API](#api)
@@ -152,78 +153,6 @@ Hello. I am the included.
 
 ```
 
-### File name without extension
-
-`@it-service-npm/remark-include` can include sub-documents
-in markdown main document with file name without extension.
-
-In this example used async plugin `remarkInclude`.
-
-> [!TIP]
->
-> For extension list used
-> [markdown-extensions](https://www.npmjs.com/package/markdown-extensions)
-> package.
-
-Source files:
-
-```typescript file=test/examples/02/example.ts
-import { remark } from 'remark';
-import * as vFile from 'to-vfile';
-import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-npm/remark-include';
-import type { VFile } from 'vfile';
-
-export async function remarkDirectiveUsingExample(
-  filePath: string
-): Promise<VFile> {
-  return remark()
-    .use(remarkDirective)
-    .use(remarkInclude)
-    .process(await vFile.read(filePath));
-};
-
-```
-
-main.md:
-
-```markdown file=test/examples/02/fixtures/main.md
-Hello. I am an main markdown file with `::include` directive.
-
-::include{file=./included1}
-
-::include{file=./included2}
-
-_That_ should do it!
-
-```
-
-included1.md:
-
-```markdown file=test/examples/02/fixtures/included1.md
-Hello. I am the `included1.md` file.
-
-```
-
-included2.markdown:
-
-```markdown file=test/examples/02/fixtures/included2.markdown
-Hello. I am the `included2.markdown` file.
-```
-
-Remark output:
-
-```markdown file=test/examples/02/snapshots/output.md
-Hello. I am an main markdown file with `::include` directive.
-
-Hello. I am the `included1.md` file.
-
-Hello. I am the `included2.markdown` file.
-
-*That* should do it!
-
-```
-
 ### Recursive transclusion
 
 `@it-service-npm/remark-include` directive supported in included files.
@@ -265,6 +194,151 @@ Hello. I am an main markdown file with `::include` directive.
 Hello. I am the included1.
 
 Hello. I am the included2.
+
+*That* should do it!
+
+```
+
+### Adjust the heading levels
+
+`@it-service-npm/remark-include` adjust the heading levels within the included content.
+
+Source files:
+
+main.md:
+
+```markdown file=test/examples/05/fixtures/main.md
+# Main file
+
+Hello. I am an main markdown file with `::include` directive.
+
+::include{file=./included1.md}
+
+## in main file
+
+_That_ should do it!
+
+```
+
+included1.md:
+
+```markdown file=test/examples/05/fixtures/included1.md
+# included1 file
+
+Hello. I am the included1.
+
+## in included1 file
+
+::include{file=./included2.md}
+
+## in included 1 file after included2
+
+text text text.
+
+```
+
+included2.md:
+
+```markdown file=test/examples/05/fixtures/included2.md
+# included2 file
+
+Hello. I am the included2.
+
+```
+
+Remark output:
+
+```markdown file=test/examples/05/snapshots/output.md
+# Main file
+
+Hello. I am an main markdown file with `::include` directive.
+
+## included1 file
+
+Hello. I am the included1.
+
+### in included1 file
+
+#### included2 file
+
+Hello. I am the included2.
+
+### in included 1 file after included2
+
+text text text.
+
+## in main file
+
+*That* should do it!
+
+```
+
+### Include multiple files with glob
+
+`@it-service-npm/remark-include` support
+[glob](https://www.npmjs.com/package/glob)
+as `file` attribute value.
+
+Source files:
+
+main.md:
+
+```markdown file=test/examples/08/fixtures/main.md
+# main file
+
+Hello. I am an main markdown file with `::include` directive.
+
+::include{file=./included*.md}
+
+_That_ should do it!
+
+```
+
+included1.md:
+
+```markdown file=test/examples/08/fixtures/included1.md
+# included 1
+
+Hello. I am the included1.
+
+```
+
+included2.md:
+
+```markdown file=test/examples/08/fixtures/included2.md
+# included 2
+
+Hello. I am the included2.
+
+```
+
+included3.md:
+
+```markdown file=test/examples/08/fixtures/included3.md
+# included 3
+
+Hello. I am the included3.
+
+```
+
+Remark output:
+
+```markdown file=test/examples/08/snapshots/output.md
+# main file
+
+Hello. I am an main markdown file with `::include` directive.
+
+## included 1
+
+Hello. I am the included1.
+
+## included 2
+
+Hello. I am the included2.
+
+## included 3
+
+Hello. I am the included3.
 
 *That* should do it!
 

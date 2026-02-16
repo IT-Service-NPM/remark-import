@@ -43,6 +43,7 @@
 		"MAINT",
 		"markdownlint",
 		"nodenext",
+		"nodir",
 		"PACKAGEJSON",
 		"qrcode",
 		"relateurl",

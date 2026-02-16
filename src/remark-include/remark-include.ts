@@ -15,17 +15,18 @@ import * as url from 'node:url';
 import RelateUrl from 'relateurl';
 import isRelativeUrl from 'is-relative-url';
 import convertPath from '@stdlib/utils-convert-path';
-import { accessSync } from 'node:fs';
-import { access } from 'node:fs/promises';
 import {
   assertDefined, isDefined,
   isString, isOptString,
   isStruct
 } from 'ts-runtime-typecheck';
-import markdownExtensions from 'markdown-extensions';
+import { glob, globSync } from 'glob';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Transformer, Plugin, Processor } from 'unified';
-import type { Node, Root, Parent, Heading, Resource, Code } from 'mdast';
+import type {
+  Node, Root, Parent, Heading,
+  Resource, Code, RootContent
+} from 'mdast';
 import type { LeafDirective } from 'mdast-util-directive';
 import type { VFile } from 'vfile';
 import { VFileMessage } from 'vfile-message';
@@ -87,20 +88,17 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
 };
 
 /**
- * Get file path candidates from `file` attribute
+ * Get file path (or glob) from `file` attribute
  * for `::include{file=path/filename.md}` directive
  *
  * @param {LeafDirective} node - include directive
  * @param {VFile} file - current markdown file
- * @returns {string[]} - possible file paths
+ * @returns {string} - file path (glob)
  */
-function getIncludeDirectiveFilePathCandidates(
+function getIncludeDirectiveFileAttr(
   node: LeafDirective,
   file: VFile
-): {
-  filePath: string,
-  candidates: string[]
-} | never {
+): string {
   try {
     assertDefined(node.attributes);
     assertDefined(node.attributes.file);
@@ -111,7 +109,6 @@ function getIncludeDirectiveFilePathCandidates(
       '@it-service-npm/remark-include'
     );
   };
-  const attrFile = node.attributes.file;
   if (!isDefined(file.dirname)) {
     file.fail(
       '::include, unexpected error: "file" should be an instance of VFile',
@@ -119,21 +116,12 @@ function getIncludeDirectiveFilePathCandidates(
       '@it-service-npm/remark-include'
     );
   };
-
-  const includedFilePath: string = path.resolve(
-    file.dirname,
-    attrFile
-  );
-  const paths: string[] = [includedFilePath].concat(
-    markdownExtensions.map((ext: string) => includedFilePath + '.' + ext)
-  );
-
-  return { filePath: includedFilePath, candidates: paths };
+  return node.attributes.file;
 };
 
 /**
  * Send Remark error message when file from
- * `::include{file=path/filename.md}` directive not found
+ * `:: include{ file = path / filename.md }` directive not found
  *
  * @param {LeafDirective} node - include directive
  * @param {VFile} file - current markdown file
@@ -167,26 +155,21 @@ function errorFileNotFound(
  * @param {VFile} file - current markdown file
  * @returns {string} - file path
  */
-function getIncludeDirectiveFilePathSync(
+function getIncludeDirectiveFilePathsSync(
   node: LeafDirective,
   file: VFile
-): string | never {
-  const paths = getIncludeDirectiveFilePathCandidates(node, file);
-  let includedFilePath = paths.filePath;
-  if (paths.candidates.some(
-    function (filePath: string): boolean {
-      try {
-        accessSync(filePath);
-        includedFilePath = filePath;
-        return true;
-      } catch {
-        return false;
-      };
-    }
-  )) {
-    return includedFilePath;
+): string[] | never {
+  const filePathGlob = getIncludeDirectiveFileAttr(node, file);
+  const includedFilesPaths = globSync(filePathGlob, {
+    nodir: true,
+    cwd: path.resolve(file.dirname!),
+    realpath: true,
+    absolute: true
+  }).sort();
+  if (includedFilesPaths.length === 0) {
+    errorFileNotFound(node, file, filePathGlob);
   } else {
-    errorFileNotFound(node, file, paths.filePath);
+    return includedFilesPaths;
   };
 };
 
@@ -197,21 +180,22 @@ function getIncludeDirectiveFilePathSync(
  * @param {VFile} file - current markdown file
  * @returns {string} - file path
  */
-async function getIncludeDirectiveFilePath(
+async function getIncludeDirectiveFilePaths(
   node: LeafDirective,
   file: VFile
-): Promise<string> {
-  const paths = getIncludeDirectiveFilePathCandidates(node, file);
-  const pathTestPromises = paths.candidates.map(
-    (filePath: string) => async function (filePath: string): Promise<string> {
-      await access(filePath);
-      return filePath;
-    }(filePath)
-  );
-  return Promise.any(pathTestPromises)
-    .catch((_err: unknown) => {
-      errorFileNotFound(node, file, paths.filePath);
-    });
+): Promise<string[]> {
+  const filePathGlob = getIncludeDirectiveFileAttr(node, file);
+  const includedFilesPaths = (await glob(filePathGlob, {
+    nodir: true,
+    cwd: path.resolve(file.dirname!),
+    realpath: true,
+    absolute: true
+  })).sort();
+  if (includedFilesPaths.length === 0) {
+    errorFileNotFound(node, file, filePathGlob);
+  } else {
+    return includedFilesPaths;
+  };
 };
 
 /**
@@ -240,7 +224,7 @@ function fixIncludedAST(
   mainFile: VFile,
   includedFile: VFile,
   depth: number
-): void {
+): Root {
   let depthDelta: number | undefined;
   visit(includedAST,
     function (_node: Node): void {
@@ -300,12 +284,13 @@ function fixIncludedAST(
       };
     }
   );
+  return includedAST;
 };
 
 /**
  * Sync plugin fabric function.
  *
- * With this Remark plugin, you can use `::include{file=path.md}`
+ * With this Remark plugin, you can use `::include{ file = path.md } `
  * directive to compose markdown files together.
  *
  * This plugin is a modern fork of
@@ -328,24 +313,33 @@ export function remarkIncludeSync(
 
     for (const includeDirective of includeDirectives) {
       try {
-        const includedFilePath = getIncludeDirectiveFilePathSync(
+
+        const includedFilePaths = getIncludeDirectiveFilePathsSync(
           includeDirective.node,
           file
         );
-        const includedFile: VFile = readSync(includedFilePath, 'utf-8');
-        const includedAST: Root = processor.runSync(
-          processor.parse(includedFile),
-          includedFile
-        ) as Root;
-
-        fixIncludedAST(
-          includedAST, file, includedFile,
-          includeDirective.depth
-        );
+        let includedContent: RootContent[] = [];
+        includedContent = includedContent.concat(...includedFilePaths.map(
+          function (
+            includedFilePath: string
+          ): RootContent[] {
+            const includedFile: VFile = readSync(includedFilePath, 'utf-8');
+            const includedAST: Root = processor.runSync(
+              processor.parse(includedFile),
+              includedFile
+            ) as Root;
+            fixIncludedAST(
+              includedAST,
+              file, includedFile,
+              includeDirective.depth
+            );
+            return includedAST.children;
+          }
+        ));
 
         includeDirective.parent.children.splice(
           includeDirective.index, 1,
-          ...includedAST.children
+          ...includedContent
         );
 
       } catch (err) {
@@ -368,7 +362,7 @@ export default remarkIncludeSync;
 /**
  * Async plugin fabric function.
  *
- * With this Remark plugin, you can use `::include{file=path.md}`
+ * With this Remark plugin, you can use `::include{ file = path.md } `
  * directive to compose markdown files together.
  *
  * This plugin is a modern fork of
@@ -391,24 +385,37 @@ export function remarkInclude(
 
     for (const includeDirective of includeDirectives) {
       try {
-        const includedFilePath = await getIncludeDirectiveFilePath(
+
+        const includedFilePaths = await getIncludeDirectiveFilePaths(
           includeDirective.node,
           file
         );
-        const includedFile: VFile = await read(includedFilePath, 'utf-8');
-        const includedAST: Root = await processor.run(
-          processor.parse(includedFile),
-          includedFile
-        ) as Root;
-
-        fixIncludedAST(
-          includedAST, file, includedFile,
-          includeDirective.depth
-        );
+        let includedContent: RootContent[] = [];
+        includedContent = includedContent.concat(...(await Promise.all(
+          includedFilePaths.map(
+            async function (
+              includedFilePath: string
+            ): Promise<RootContent[]> {
+              const includedFile: VFile = await read(
+                includedFilePath, 'utf-8'
+              );
+              const includedAST: Root = await processor.run(
+                processor.parse(includedFile),
+                includedFile
+              ) as Root;
+              fixIncludedAST(
+                includedAST,
+                file, includedFile,
+                includeDirective.depth
+              );
+              return includedAST.children;
+            }
+          )
+        )));
 
         includeDirective.parent.children.splice(
           includeDirective.index, 1,
-          ...includedAST.children
+          ...includedContent
         );
 
       } catch (err) {

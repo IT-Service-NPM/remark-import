@@ -62,6 +62,7 @@
 	},
 	"dependencies": {
 		"@stdlib/utils-convert-path": "^0.2.3",
+		"glob": "^13.0.3",
 		"is-relative-url": "^4.1.0",
 		"markdown-extensions": "^2.0.0",
 		"relateurl": "^0.2.7",

@@ -15,23 +15,24 @@ All notable changes to this project will be documented in this file. See
 
 # [3.1.0](https://github.com/IT-Service-NPM/remark-include/compare/v3.0.0...v3.1.0) (2026-02-16)
 
-
 ### Features
 
-* fix url in all Resource node ([e88accc](https://github.com/IT-Service-NPM/remark-include/commit/e88accce5de75a7eb3f99b4fdf54a96e0a91bbdc))
+* fix url in all Resource nodes,
+  not just in links, images and definitions
+  ([e88accc](https://github.com/IT-Service-NPM/remark-include/commit/e88accce5de75a7eb3f99b4fdf54a96e0a91bbdc))
 
 # [3.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.6...v3.0.0) (2026-02-16)
 
-
 ### Bug Fixes
 
-* fix multiple `::include` in one file ([4aa0879](https://github.com/IT-Service-NPM/remark-include/commit/4aa0879493d587bfa510e5f1d7bb5d3c1630afd4))
-
+* fix multiple `::include` in one file
+  ([4aa0879](https://github.com/IT-Service-NPM/remark-include/commit/4aa0879493d587bfa510e5f1d7bb5d3c1630afd4))
 
 ### Features
 
-* support async processing ([3007f8c](https://github.com/IT-Service-NPM/remark-include/commit/3007f8c11ec06e8cfbef8305dfb5a85034ca628f))
-
+* support async processing
+  ([3007f8c](https://github.com/IT-Service-NPM/remark-include/commit/3007f8c11ec06e8cfbef8305dfb5a85034ca628f)),
+  closes [#6](https://github.com/IT-Service-NPM/remark-include/issues/6)
 
 ### BREAKING CHANGES
 
