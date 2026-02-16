@@ -16,7 +16,6 @@ Hello. I am an main markdown file with `::include` directive.
 ::include{file=./included*.md}
 
 _That_ should do it!
-
 ```
 
 included1.md:
@@ -25,7 +24,6 @@ included1.md:
 # included 1
 
 Hello. I am the included1.
-
 ```
 
 included2.md:
@@ -34,7 +32,6 @@ included2.md:
 # included 2
 
 Hello. I am the included2.
-
 ```
 
 included3.md:
@@ -43,7 +40,6 @@ included3.md:
 # included 3
 
 Hello. I am the included3.
-
 ```
 
 Remark output:
@@ -66,5 +62,4 @@ Hello. I am the included2.
 Hello. I am the included3.
 
 *That* should do it!
-
 ```
