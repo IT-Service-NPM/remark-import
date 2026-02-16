@@ -79,7 +79,7 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
     }
   );
 
-  return includeDirectives;
+  return includeDirectives.reverse();
 };
 
 /**
