@@ -121,7 +121,7 @@ function getIncludeDirectiveFileAttr(
 
 /**
  * Send Remark error message when file from
- * `:: include{ file = path / filename.md }` directive not found
+ * `:: include{file=path/filename.md}` directive not found
  *
  * @param {LeafDirective} node - include directive
  * @param {VFile} file - current markdown file
@@ -290,7 +290,7 @@ function fixIncludedAST(
 /**
  * Sync plugin fabric function.
  *
- * With this Remark plugin, you can use `::include{ file = path.md } `
+ * With this Remark plugin, you can use `::include{file=path.md}`
  * directive to compose markdown files together.
  *
  * This plugin is a modern fork of
@@ -362,7 +362,7 @@ export default remarkIncludeSync;
 /**
  * Async plugin fabric function.
  *
- * With this Remark plugin, you can use `::include{ file = path.md } `
+ * With this Remark plugin, you can use `::include{file=path.md}`
  * directive to compose markdown files together.
  *
  * This plugin is a modern fork of
