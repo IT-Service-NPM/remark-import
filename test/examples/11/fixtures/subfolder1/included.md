@@ -20,9 +20,10 @@ export async function remarkDirectiveUsingExample(
 
 Code with file path with spaces and lines range:
 
-```typescript file=code\ with\ spaces.ts#L10-L13
+```typescript file=code\ with\ spaces.ts#L11-L15
   return remark()
     .use(remarkDirective)
+    .use([codeImport])
     .use(remarkInclude)
     .process(await vFile.read(filePath));
 ```
