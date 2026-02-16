@@ -17,7 +17,11 @@ import isRelativeUrl from 'is-relative-url';
 import convertPath from '@stdlib/utils-convert-path';
 import { accessSync } from 'node:fs';
 import { access } from 'node:fs/promises';
-import { assertDefined, isDefined } from 'ts-runtime-typecheck';
+import {
+  assertDefined, isDefined,
+  isString, isOptString,
+  isStruct
+} from 'ts-runtime-typecheck';
 import markdownExtensions from 'markdown-extensions';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Transformer, Plugin, Processor } from 'unified';
@@ -211,6 +215,14 @@ async function getIncludeDirectiveFilePath(
 };
 
 /**
+ * Check if node instanceof Resource
+ */
+const isResource = isStruct({
+  url: isString,
+  title: isOptString
+});
+
+/**
  * Included markdown AST postprocessing:
  *
  * - relative images and links in the included files
@@ -231,7 +243,6 @@ function fixIncludedAST(
 ): void {
   let depthDelta: number | undefined;
   visit(includedAST,
-    ['heading', 'image', 'link', 'definition', 'code'],
     function (_node: Node): void {
 
       if (is(_node, 'heading')) {
@@ -239,8 +250,8 @@ function fixIncludedAST(
         depthDelta ??= node.depth - depth - 1;
         node.depth -= depthDelta;
 
-      } else if (is(_node, ['image', 'link', 'definition'])) {
-        const node: Resource = _node as unknown as Resource;
+      } else if (isResource(_node)) {
+        const node: Resource = _node;
         if (isRelativeUrl(node.url,
           { allowProtocolRelative: false })
         ) {
@@ -253,7 +264,7 @@ function fixIncludedAST(
           );
         };
 
-      } else { // if (is(_node, 'code')) {
+      } else if (is(_node, 'code')) {
         const node: Code = _node as Code;
         const fileMeta: string | undefined = (node.meta ?? '')
           // Allow escaping spaces
