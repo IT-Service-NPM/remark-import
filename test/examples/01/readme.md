@@ -2,7 +2,7 @@
 
 `@it-service-npm/remark-include` can include sub-documents in markdown document.
 
-> \[!IMPORTANT]
+> [!IMPORTANT]
 >
 > `remark-directive` plugin expected in remark pipeline before
 > `@it-service-npm/remark-include`!
@@ -11,7 +11,7 @@
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import remarkInclude from '#@it-service-npm/remark-include';
+import { remarkIncludeSync } from '#@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(
@@ -19,7 +19,7 @@ export async function remarkDirectiveUsingExample(
 ): Promise<VFile> {
   return remark()
     .use(remarkDirective)
-    .use(remarkInclude)
+    .use(remarkIncludeSync)
     .process(await vFile.read(filePath));
 };
 ```

@@ -68,6 +68,8 @@ If the `::include{file=./included.md}` statement happens under Heading 2,
 for example, any heading 1 in the included file
 will be "translated" to have header level 3.
 
+`remarkInclude` (preferably) and `remarkIncludeSync` are exported.
+
 ## Contents
 
 - [@it-service-npm/remark-include Remark plugin](#it-service-npmremark-include-remark-plugin)

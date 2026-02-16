@@ -4,11 +4,11 @@
 
 ## remark-include package
 
-## Variables
+## Functions
 
 <table><thead><tr><th>
 
-Variable
+Function
 
 
 </th><th>
@@ -19,12 +19,27 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[remarkInclude](./remark-include.remarkinclude.md)
+[remarkInclude(this)](./remark-include.remarkinclude.md)
 
 
 </td><td>
 
-Plugin fabric function.
+Async plugin fabric function.
+
+With this Remark plugin, you can use `::include{file=path.md}` directive to compose markdown files together.
+
+This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
+
+
+</td></tr>
+<tr><td>
+
+[remarkIncludeSync(this)](./remark-include.remarkincludesync.md)
+
+
+</td><td>
+
+Sync plugin fabric function.
 
 With this Remark plugin, you can use `::include{file=path.md}` directive to compose markdown files together.
 

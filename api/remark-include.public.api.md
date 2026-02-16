@@ -4,13 +4,17 @@
 
 ```ts
 
-import { Plugin } from 'unified';
+import { Processor } from 'unified';
 import { Root } from 'mdast';
+import { Transformer } from 'unified';
 
 // @public
-const remarkInclude: Plugin<[], Root>;
-export default remarkInclude;
-export { remarkInclude }
+export function remarkInclude(this: Processor): Transformer<Root>;
+
+// @public
+function remarkIncludeSync(this: Processor): Transformer<Root>;
+export default remarkIncludeSync;
+export { remarkIncludeSync }
 
 // (No @packageDocumentation comment for this package)
 

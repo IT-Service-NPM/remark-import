@@ -2,7 +2,7 @@ import * as path from 'node:path';
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import remarkInclude from '#@it-service-npm/remark-include';
+import { remarkIncludeSync } from '#@it-service-npm/remark-include';
 
 const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
 
@@ -14,7 +14,7 @@ describe('remark-include', () => {
 
       const RemarkProcessor = remark()
         .use(remarkDirective)
-        .use(remarkInclude)
+        .use(remarkIncludeSync)
         .freeze();
       const testFile = await vFile.read(
         path.join(testSrcFilesPath, 'main-without-file-attribute.md')

@@ -9,7 +9,7 @@ import remarkValidateLinks from 'remark-validate-links';
 import remarkLintCodeBlockStyle from 'remark-lint-code-block-style';
 import codeImport from 'remark-code-import';
 import remarkDirective from 'remark-directive';
-import remarkInclude from '#@it-service-npm/remark-include';
+import { remarkInclude } from '#@it-service-npm/remark-include';
 import remarkToc from 'remark-toc';
 
 export default {
