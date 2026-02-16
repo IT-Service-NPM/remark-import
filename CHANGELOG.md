@@ -13,6 +13,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.6...v3.0.0) (2026-02-16)
+
+
+### Bug Fixes
+
+* fix multiple `::include` in one file ([4aa0879](https://github.com/IT-Service-NPM/remark-include/commit/4aa0879493d587bfa510e5f1d7bb5d3c1630afd4))
+
+
+### Features
+
+* support async processing ([3007f8c](https://github.com/IT-Service-NPM/remark-include/commit/3007f8c11ec06e8cfbef8305dfb5a85034ca628f))
+
+
+### BREAKING CHANGES
+
+* added `remarkInclude` (async, preferably) and `remarkIncludeSync` exports (#6)
+
 ## [2.0.6](https://github.com/IT-Service-NPM/remark-include/compare/v2.0.5...v2.0.6) (2026-02-15)
 
 ### Bug Fixes
