@@ -150,59 +150,6 @@ function errorFileNotFound(
 };
 
 /**
- * Searches for an existing file among possible paths and returns it
- *
- * @param {LeafDirective} node - include directive
- * @param {VFile} file - current markdown file
- * @returns {string} - file path
- */
-function getIncludeDirectiveFilePathsSync(
-  node: LeafDirective,
-  file: VFile
-): string[] | never {
-  const filePathGlob = getIncludeDirectiveFileAttr(node, file);
-  const includedFilesPaths = globSync(filePathGlob, {
-    cwd: path.resolve(file.dirname!)
-  })
-    .map((filePath: string): string => path.resolve(
-      path.resolve(file.dirname!),
-      filePath
-    ));
-  if (includedFilesPaths.length === 0) {
-    errorFileNotFound(node, file, filePathGlob);
-  } else {
-    return includedFilesPaths;
-  };
-};
-
-/**
- * Searches for an existing file among possible paths and returns it
- *
- * @param {LeafDirective} node - include directive
- * @param {VFile} file - current markdown file
- * @returns {string} - file path
- */
-async function* getIncludeDirectiveFilePath(
-  node: LeafDirective,
-  file: VFile
-): AsyncGenerator<string> {
-  const filePathGlob = getIncludeDirectiveFileAttr(node, file);
-  let pathsCount = 0;
-  for await (const filePath of glob(filePathGlob, {
-    cwd: path.resolve(file.dirname!)
-  })) {
-    yield path.resolve(
-      path.resolve(file.dirname!),
-      filePath
-    );
-    pathsCount++;
-  };
-  if (pathsCount === 0) {
-    errorFileNotFound(node, file, filePathGlob);
-  };
-};
-
-/**
  * Check if node instanceof Resource
  */
 const isResource = isStruct({
@@ -318,15 +265,24 @@ export function remarkIncludeSync(
     for (const includeDirective of includeDirectives) {
       try {
 
-        const includedFilePaths = getIncludeDirectiveFilePathsSync(
+        const filePathGlob = getIncludeDirectiveFileAttr(
           includeDirective.node,
-          file
-        );
-        let includedContent: RootContent[] = [];
-        includedContent = includedContent.concat(...includedFilePaths.map(
+          file);
+        const includedFilesPaths = globSync(filePathGlob, {
+          cwd: path.resolve(file.dirname!)
+        });
+        if (includedFilesPaths.length === 0) {
+          errorFileNotFound(includeDirective.node, file, filePathGlob);
+        };
+
+        const includedContent: RootContent[] = includedFilesPaths.map(
           function (
-            includedFilePath: string
+            _includedFilePath: string
           ): RootContent[] {
+            const includedFilePath = path.resolve(
+              path.resolve(file.dirname!),
+              _includedFilePath
+            );
             const includedFile: VFile = readSync(includedFilePath, 'utf-8');
             const includedAST: Root = processor.runSync(
               processor.parse(includedFile),
@@ -339,7 +295,7 @@ export function remarkIncludeSync(
             );
             return includedAST.children;
           }
-        ));
+        ).flat();
 
         includeDirective.parent.children.splice(
           includeDirective.index, 1,
@@ -389,11 +345,20 @@ export function remarkInclude(
 
     for (const includeDirective of includeDirectives) {
       try {
-        const _includedContent: RootContent[][] = [];
-        for await (const includedFilePath of getIncludeDirectiveFilePath(
+
+        const filePathGlob = getIncludeDirectiveFileAttr(
           includeDirective.node,
           file
-        )) {
+        );
+
+        const _includedContent: RootContent[][] = [];
+        for await (const _includedFilePath of glob(filePathGlob, {
+          cwd: path.resolve(file.dirname!)
+        })) {
+          const includedFilePath = path.resolve(
+            path.resolve(file.dirname!),
+            _includedFilePath
+          );
           const includedFile: VFile = await read(
             includedFilePath, 'utf-8'
           );
@@ -408,8 +373,12 @@ export function remarkInclude(
           );
           _includedContent.unshift(includedAST.children);
         };
-        const includedContent: RootContent[] = _includedContent.flat();
 
+        if (_includedContent.length === 0) {
+          errorFileNotFound(includeDirective.node, file, filePathGlob);
+        };
+
+        const includedContent: RootContent[] = _includedContent.flat();
         includeDirective.parent.children.splice(
           includeDirective.index, 1,
           ...includedContent
