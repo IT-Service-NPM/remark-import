@@ -21,8 +21,8 @@
 		"joshbolduc.commitlint",
 		"ryanluker.vscode-coverage-gutters",
 		"adam-bender.commit-message-editor",
-		"crystal-spider.jsdoc-generator",
-		"bierner.jsdoc-markdown-highlighting"
+		"bierner.jsdoc-markdown-highlighting",
+		"vicius.tsdoc-gen"
 	],
 	"unwantedRecommendations": [
 		"serhioromano.vscode-gitflow"
