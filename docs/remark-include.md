@@ -26,7 +26,7 @@ Description
 
 Async plugin fabric function.
 
-With this Remark plugin, you can use `::include{ file = path.md } ` directive to compose markdown files together.
+With this Remark plugin, you can use `::include` directive to compose markdown files together.
 
 This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
 
@@ -41,7 +41,7 @@ This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson
 
 Sync plugin fabric function.
 
-With this Remark plugin, you can use `::include{ file = path.md } ` directive to compose markdown files together.
+With this Remark plugin, you can use `::include` directive to compose markdown files together.
 
 This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
 

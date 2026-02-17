@@ -11,6 +11,7 @@ import codeImport from 'remark-code-import';
 import remarkDirective from 'remark-directive';
 import { remarkInclude } from '#@it-service-npm/remark-include';
 import remarkToc from 'remark-toc';
+import removeComments from 'remark-remove-comments';
 
 export default {
   plugins: [
@@ -25,6 +26,7 @@ export default {
     remarkPresetLintConsistent,
     remarkPresetLintRecommended,
     remarkLintCodeBlockStyle,
+    removeComments
   ],
   settings: {
     bullet: '-'
