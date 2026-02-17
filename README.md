@@ -68,7 +68,7 @@ If the `::include{file=./included.md}` statement happens under Heading 2,
 for example, any heading 1 in the included file
 will be “translated” to have header level 3.
 
-There are two exports: `remarkInclude` (preferred) and `remarkIncludeSync`.
+There are two exports: `remarkInclude` (preferred) and `remarkIncludeSync`.
 
 ## Contents
 
@@ -91,19 +91,15 @@ There are two exports: `remarkInclude` (preferred) and `remarkIncludeSync`.
 npm install --save-dev @it-service-npm/remark-include
 ```
 
-`remark-directive` plugin expected before
-`@it-service-npm/remark-include`!
+> [!IMPORTANT]
+> `remark-directive` plugin expected before
+> `@it-service-npm/remark-include`!
 
 ## Examples
 
 ### Transclusion or including markdown sub-documents for reuse
 
 `@it-service-npm/remark-include` can include sub-documents in markdown document.
-
-> [!IMPORTANT]
->
-> `remark-directive` plugin expected in remark pipeline before
-> `@it-service-npm/remark-include`!
 
 ```typescript file=test/examples/01/example.ts
 import { remark } from 'remark';
@@ -511,3 +507,13 @@ Please, read the [API reference](/docs/index.md).
 ## License
 
 [MIT](LICENSE) © [Sergei S. Betke](https://github.com/sergey-s-betke)
+
+[!NOTE]: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
+
+[!TIP]: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
+
+[!IMPORTANT]: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
+
+[!WARNING]: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
+
+[!CAUTION]: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts

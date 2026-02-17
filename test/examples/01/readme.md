@@ -2,11 +2,6 @@
 
 `@it-service-npm/remark-include` can include sub-documents in markdown document.
 
-> \[!IMPORTANT]
->
-> `remark-directive` plugin expected in remark pipeline before
-> `@it-service-npm/remark-include`!
-
 ```typescript file=./example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';

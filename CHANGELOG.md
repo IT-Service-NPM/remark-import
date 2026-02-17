@@ -15,11 +15,10 @@ All notable changes to this project will be documented in this file. See
 
 # [4.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v3.2.0...v4.0.0) (2026-02-17)
 
-
 ### Code Refactoring
 
-* replace 'glob' package with node:fs glob ([8e7b798](https://github.com/IT-Service-NPM/remark-include/commit/8e7b798d97c8e01490c5714412393cd7de79233a))
-
+* replace 'glob' package with node:fs glob
+ ([8e7b798](https://github.com/IT-Service-NPM/remark-include/commit/8e7b798d97c8e01490c5714412393cd7de79233a))
 
 ### BREAKING CHANGES
 
