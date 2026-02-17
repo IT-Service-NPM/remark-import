@@ -20,7 +20,8 @@ import {
   isString, isOptString,
   isStruct
 } from 'ts-runtime-typecheck';
-import { glob, globSync } from 'glob';
+import { globSync } from 'node:fs';
+import { glob } from 'node:fs/promises';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Transformer, Plugin, Processor } from 'unified';
 import type {
@@ -161,11 +162,12 @@ function getIncludeDirectiveFilePathsSync(
 ): string[] | never {
   const filePathGlob = getIncludeDirectiveFileAttr(node, file);
   const includedFilesPaths = globSync(filePathGlob, {
-    nodir: true,
-    cwd: path.resolve(file.dirname!),
-    realpath: true,
-    absolute: true
-  }).sort();
+    cwd: path.resolve(file.dirname!)
+  })
+    .map((filePath: string): string => path.resolve(
+      path.resolve(file.dirname!),
+      filePath
+    ));
   if (includedFilesPaths.length === 0) {
     errorFileNotFound(node, file, filePathGlob);
   } else {
@@ -180,21 +182,23 @@ function getIncludeDirectiveFilePathsSync(
  * @param {VFile} file - current markdown file
  * @returns {string} - file path
  */
-async function getIncludeDirectiveFilePaths(
+async function* getIncludeDirectiveFilePath(
   node: LeafDirective,
   file: VFile
-): Promise<string[]> {
+): AsyncGenerator<string> {
   const filePathGlob = getIncludeDirectiveFileAttr(node, file);
-  const includedFilesPaths = (await glob(filePathGlob, {
-    nodir: true,
-    cwd: path.resolve(file.dirname!),
-    realpath: true,
-    absolute: true
-  })).sort();
-  if (includedFilesPaths.length === 0) {
+  let pathsCount = 0;
+  for await (const filePath of glob(filePathGlob, {
+    cwd: path.resolve(file.dirname!)
+  })) {
+    yield path.resolve(
+      path.resolve(file.dirname!),
+      filePath
+    );
+    pathsCount++;
+  };
+  if (pathsCount === 0) {
     errorFileNotFound(node, file, filePathGlob);
-  } else {
-    return includedFilesPaths;
   };
 };
 
@@ -385,33 +389,26 @@ export function remarkInclude(
 
     for (const includeDirective of includeDirectives) {
       try {
-
-        const includedFilePaths = await getIncludeDirectiveFilePaths(
+        const _includedContent: RootContent[][] = [];
+        for await (const includedFilePath of getIncludeDirectiveFilePath(
           includeDirective.node,
           file
-        );
-        let includedContent: RootContent[] = [];
-        includedContent = includedContent.concat(...(await Promise.all(
-          includedFilePaths.map(
-            async function (
-              includedFilePath: string
-            ): Promise<RootContent[]> {
-              const includedFile: VFile = await read(
-                includedFilePath, 'utf-8'
-              );
-              const includedAST: Root = await processor.run(
-                processor.parse(includedFile),
-                includedFile
-              ) as Root;
-              fixIncludedAST(
-                includedAST,
-                file, includedFile,
-                includeDirective.depth
-              );
-              return includedAST.children;
-            }
-          )
-        )));
+        )) {
+          const includedFile: VFile = await read(
+            includedFilePath, 'utf-8'
+          );
+          const includedAST: Root = await processor.run(
+            processor.parse(includedFile),
+            includedFile
+          ) as Root;
+          fixIncludedAST(
+            includedAST,
+            file, includedFile,
+            includeDirective.depth
+          );
+          _includedContent.unshift(includedAST.children);
+        };
+        const includedContent: RootContent[] = _includedContent.flat();
 
         includeDirective.parent.children.splice(
           includeDirective.index, 1,
