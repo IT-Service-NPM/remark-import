@@ -18,7 +18,7 @@ All notable changes to this project will be documented in this file. See
 ### Code Refactoring
 
 * replace 'glob' package with node:fs glob
- ([8e7b798](https://github.com/IT-Service-NPM/remark-include/commit/8e7b798d97c8e01490c5714412393cd7de79233a))
+  ([8e7b798](https://github.com/IT-Service-NPM/remark-include/commit/8e7b798d97c8e01490c5714412393cd7de79233a))
 
 ### BREAKING CHANGES
 
