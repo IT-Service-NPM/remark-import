@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/IT-Service-NPM/remark-include/compare/v4.0.1...v4.1.0) (2026-02-18)
+
+
+### Features
+
+* remark-directive used implicitly ([15aed24](https://github.com/IT-Service-NPM/remark-include/commit/15aed24f1e388e1e9cc6b27589737cdb81e4a031))
+
 ## [4.0.1](https://github.com/IT-Service-NPM/remark-include/compare/v4.0.0...v4.0.1) (2026-02-18)
 
 
