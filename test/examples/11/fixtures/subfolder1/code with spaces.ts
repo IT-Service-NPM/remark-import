@@ -1,7 +1,7 @@
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-npm/remark-include';
+import { remarkInclude } from '@it-service-npm/remark-include';
 import codeImport from 'remark-code-import';
 import type { VFile } from 'vfile';
 

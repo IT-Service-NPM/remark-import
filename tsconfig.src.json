@@ -1,0 +1,20 @@
+{
+	"extends": "./tsconfig.json",
+	"include": [
+		"./src"
+	],
+	"compilerOptions": {
+		"tsBuildInfoFile": "/temp/tsconfig.src.tsbuildinfo",
+		"composite": true,
+		"noEmit": false,
+		"allowImportingTsExtensions": false,
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"sourceMap": true,
+		"declaration": true,
+		"declarationMap": true,
+		"types": [
+			"node"
+		],
+	}
+}

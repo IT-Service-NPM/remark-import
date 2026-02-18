@@ -24,7 +24,7 @@ Hello. I am the included. Test for code file path rebasing:
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-npm/remark-include';
+import { remarkInclude } from '@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(
@@ -54,7 +54,7 @@ And code without file attribute:
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-npm/remark-include';
+import { remarkInclude } from '@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 ```
 ````
@@ -70,7 +70,7 @@ Hello. I am the included. Test for code file path rebasing:
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-npm/remark-include';
+import { remarkInclude } from '@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(
@@ -100,7 +100,7 @@ And code without file attribute:
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkInclude } from '#@it-service-npm/remark-include';
+import { remarkInclude } from '@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 ```
 

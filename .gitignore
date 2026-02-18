@@ -1,5 +1,7 @@
 node_modules
 dist
+tsconfig.tsbuildinfo
+**/tsconfig.tsbuildinfo
 coverage
 temp
 package-lock.json

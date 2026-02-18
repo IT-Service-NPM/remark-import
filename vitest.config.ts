@@ -9,10 +9,18 @@ export default defineConfig({
   test: {
     globals: true,
     coverage: {
+      enabled: true,
       provider: 'istanbul',
       reporter: ['text', 'json-summary', 'json', 'lcov'],
+      reportsDirectory: './coverage',
       reportOnFailure: true,
-      include: ['src/**']
+      // include: [
+      //   './src/**/*.ts'
+      // ],
+      exclude: [
+        './test'
+      ],
+      excludeAfterRemap: true
     },
     reporters: process.env.GITHUB_ACTIONS
       ? ['default', 'junit', 'json']

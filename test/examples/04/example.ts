@@ -1,6 +1,6 @@
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
-import { remarkInclude } from '#@it-service-npm/remark-include';
+import { remarkInclude } from '@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(

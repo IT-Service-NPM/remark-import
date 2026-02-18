@@ -2,7 +2,7 @@ import { remark } from 'remark';
 // import type { Plugin } from 'unified';
 // import type { Root } from 'mdast';
 import * as vFile from 'to-vfile';
-import { remarkInclude } from '#@it-service-npm/remark-include';
+import { remarkInclude } from '@it-service-npm/remark-include';
 // import codeImport from 'remark-code-import';
 import type { VFile } from 'vfile';
 

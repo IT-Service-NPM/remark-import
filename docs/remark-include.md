@@ -4,6 +4,10 @@
 
 ## remark-include package
 
+With this Remark plugin, you can use `::include` directive to compose markdown files together.
+
+This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
+
 ## Variables
 
 <table><thead><tr><th>

@@ -4,10 +4,10 @@
 
 ```ts
 
-import { Preset } from 'unified';
-import { Processor } from 'unified';
-import { Root } from 'mdast';
-import { Transformer } from 'unified';
+import type { Preset } from 'unified';
+import type { Processor } from 'unified';
+import type { Root } from 'mdast';
+import type { Transformer } from 'unified';
 
 // @public
 export const remarkInclude: Preset;
@@ -16,7 +16,5 @@ export const remarkInclude: Preset;
 const remarkIncludeSync: Preset;
 export default remarkIncludeSync;
 export { remarkIncludeSync }
-
-// (No @packageDocumentation comment for this package)
 
 ```

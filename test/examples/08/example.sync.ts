@@ -1,7 +1,7 @@
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import remarkDirective from 'remark-directive';
-import { remarkIncludeSync } from '#@it-service-npm/remark-include';
+import { remarkIncludeSync } from '@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(

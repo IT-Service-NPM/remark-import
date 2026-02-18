@@ -6,7 +6,7 @@ import * as vFile from 'to-vfile';
 import {
   remarkInclude,
   remarkIncludeSync
-} from '#@it-service-npm/remark-include';
+} from '@it-service-npm/remark-include';
 
 const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
 const testSnapshotsFilesPath: string = path.join(__dirname, 'snapshots');

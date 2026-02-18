@@ -1,7 +1,7 @@
 import * as path from 'node:path';
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
-import { remarkIncludeSync } from '#@it-service-npm/remark-include';
+import { remarkIncludeSync } from '@it-service-npm/remark-include';
 
 const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
 
