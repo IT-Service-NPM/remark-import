@@ -10,7 +10,7 @@
 		}
 	],
 	"compilerOptions": {
-		"tsBuildInfoFile": "/temp/tsconfig.tsbuildinfo",
+		"tsBuildInfoFile": "./temp/tsconfig.tsbuildinfo",
 		"noEmit": true,
 		"allowImportingTsExtensions": true,
 		"esModuleInterop": true,
