@@ -21,7 +21,7 @@ import { glob } from 'node:fs/promises';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Transformer, Preset, Plugin, Processor } from 'unified';
 import type {
-  Node, Root, Parent, Heading,
+  Nodes, Root, Parent, Heading,
   Resource, Code, RootContent
 } from 'mdast';
 import type { LeafDirective } from 'mdast-util-directive';
@@ -57,16 +57,15 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
 
   visit(
     tree,
-    function (_node: Node, index?: number, parent?: Parent): void {
-      if (_node.type === 'heading') {
-        const node: Heading = _node as Heading;
+    function (node: Nodes, index?: number, parent?: Parent): void {
+      if (node.type === 'heading') {
         depth = node.depth;
       } else if (
-        (_node.type === 'leafDirective') &&
-        ((_node as LeafDirective).name === 'include')
+        (node.type === 'leafDirective') &&
+        ((node).name === 'include')
       ) {
         includeDirectives.push({
-          node: _node as LeafDirective,
+          node: node,
           index: index!,
           parent: parent!,
           depth: depth
@@ -160,10 +159,10 @@ function fixIncludedAST(
 ): Root {
   let depthDelta: number | undefined;
   visit(includedAST,
-    function (_node: Node): void {
+    function (_node: Nodes): void {
 
       if (_node.type === 'heading') {
-        const node: Heading = _node as Heading;
+        const node: Heading = _node;
         depthDelta ??= node.depth - depth - 1;
         node.depth -= depthDelta;
 
@@ -185,7 +184,7 @@ function fixIncludedAST(
         };
 
       } else if (_node.type === 'code') {
-        const node: Code = _node as Code;
+        const node: Code = _node;
         const fileMeta: string | undefined = (node.meta ?? '')
           // Allow escaping spaces
           .split(/(?<!\\) /g)
