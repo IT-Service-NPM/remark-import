@@ -41,14 +41,9 @@ import { convert, is } from 'unist-util-is';
 /**
  * Collect `::include` directives for processing
  *
- * @param {Root} tree - source AST
- * @param {VFile} _file - source markdown file
- * @returns {{
- *   node: LeafDirective,
- *   index: number,
- *   parent: Parent,
- *   depth: number
- * }[]}
+ * @param tree source AST
+ * @param _file source markdown file
+ * @returns directives for later processing
  */
 function getIncludeDirectives(tree: Root, _file: VFile): {
   node: LeafDirective,
@@ -93,9 +88,9 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
  * Get file path (or glob) from `file` attribute
  * for `::include` directive
  *
- * @param {LeafDirective} node - include directive
- * @param {VFile} file - current markdown file
- * @returns {string} - file path (glob)
+ * @param node include directive
+ * @param file current markdown file
+ * @returns file path (glob)
  */
 function getIncludeDirectiveFileAttr(
   node: LeafDirective,
@@ -125,10 +120,10 @@ function getIncludeDirectiveFileAttr(
  * Send Remark error message when file from
  * `::include` directive not found
  *
- * @param {LeafDirective} node - include directive
- * @param {VFile} file - current markdown file
- * @param {string} filePath - missing file path
- * @throws {VFileMessage}
+ * @param node - include directive
+ * @param file - current markdown file
+ * @param filePath - missing file path
+ * @throws
  */
 function errorFileNotFound(
   node: LeafDirective,
@@ -168,10 +163,10 @@ const isResource = isStruct({
  *   to be relative the original document rather than the imported file
  * - an included markdown file will "inherit" the heading levels
  *
- * @param {Root} includedAST - AST for included markdown file
- * @param {VFile} mainFile - main ("includer") markdown file
- * @param {VFile} includedFile - included markdown file
- * @param {number} depth - heading level for current include directive
+ * @param includedAST AST for included markdown file
+ * @param mainFile main ("includer") markdown file
+ * @param includedFile included markdown file
+ * @param depth heading level for current include directive
  */
 function fixIncludedAST(
   includedAST: Root,
