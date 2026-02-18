@@ -15,30 +15,31 @@ All notable changes to this project will be documented in this file. See
 
 # [4.2.0](https://github.com/IT-Service-NPM/remark-include/compare/v4.1.0...v4.2.0) (2026-02-18)
 
-
 ### Features
 
-* add exports - 2 plugins and 2 presets ([d994461](https://github.com/IT-Service-NPM/remark-include/commit/d9944612e651aed1a0dc3d9b92b8b26b5dfd6ed5))
+* the package exports 2 plugins and 2 presets (with [`remark-directive`][])
+  ([d994461](https://github.com/IT-Service-NPM/remark-include/commit/d9944612e651aed1a0dc3d9b92b8b26b5dfd6ed5))
 
 # [4.1.0](https://github.com/IT-Service-NPM/remark-include/compare/v4.0.1...v4.1.0) (2026-02-18)
 
-
 ### Features
 
-* remark-directive used implicitly ([15aed24](https://github.com/IT-Service-NPM/remark-include/commit/15aed24f1e388e1e9cc6b27589737cdb81e4a031))
+* [`remark-directive`][] used implicitly
+  (the package exports presets, not plugins)
+  ([15aed24](https://github.com/IT-Service-NPM/remark-include/commit/15aed24f1e388e1e9cc6b27589737cdb81e4a031))
 
 ## [4.0.1](https://github.com/IT-Service-NPM/remark-include/compare/v4.0.0...v4.0.1) (2026-02-18)
 
-
 ### Bug Fixes
 
-* do not translate links starting with `/` ([50ef9ef](https://github.com/IT-Service-NPM/remark-include/commit/50ef9ef36d378d16091ee66aea44d2b8c927cd81)), closes [#10](https://github.com/IT-Service-NPM/remark-include/issues/10)
+* do not translate links starting with `/`
+  ([50ef9ef](https://github.com/IT-Service-NPM/remark-include/commit/50ef9ef36d378d16091ee66aea44d2b8c927cd81)), closes [#10](https://github.com/IT-Service-NPM/remark-include/issues/10)
 
 # [4.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v3.2.0...v4.0.0) (2026-02-17)
 
 ### Code Refactoring
 
-* replace 'glob' package with node:fs glob
+* replace `glob` package with `node:fs` `glob` and `globSync`
   ([8e7b798](https://github.com/IT-Service-NPM/remark-include/commit/8e7b798d97c8e01490c5714412393cd7de79233a))
 
 ### BREAKING CHANGES
@@ -159,3 +160,5 @@ All notable changes to this project will be documented in this file. See
 * include directive refactored with Typescript
   ([e22f4b1](https://github.com/IT-Service-NPM/remark-include/commit/e22f4b10287ee99fd0855ca473050989032ea114)),
   [#2](https://github.com/IT-Service-NPM/remark-include/issues/2)
+
+[`remark-directive`]: https://www.npmjs.com/package/remark-directive
