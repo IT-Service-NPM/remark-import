@@ -15,7 +15,6 @@ import * as url from 'node:url';
 import RelateUrl from 'relateurl';
 import isAbsoluteUrl from 'is-absolute-url';
 import convertPath from '@stdlib/utils-convert-path';
-import { assertDefined, isDefined } from 'ts-runtime-typecheck';
 import { globSync } from 'node:fs';
 import { glob } from 'node:fs/promises';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -89,24 +88,26 @@ function getIncludeDirectiveFileAttr(
   node: LeafDirective,
   file: VFile
 ): string {
-  try {
-    assertDefined(node.attributes);
-    assertDefined(node.attributes.file);
-  } catch {
+  if (
+    node.attributes?.file === null ||
+    typeof node.attributes?.file === 'undefined'
+  ) {
     file.fail(
       '::include, `file` attribute expected',
       node,
       '@it-service-npm/remark-include'
     );
+  } else {
+    if (typeof file.dirname === 'undefined') {
+      file.fail(
+        '::include, unexpected error: "file" should be an instance of VFile',
+        node,
+        '@it-service-npm/remark-include'
+      );
+    } else {
+      return node.attributes.file;
+    };
   };
-  if (!isDefined(file.dirname)) {
-    file.fail(
-      '::include, unexpected error: "file" should be an instance of VFile',
-      node,
-      '@it-service-npm/remark-include'
-    );
-  };
-  return node.attributes.file;
 };
 
 /**
@@ -123,14 +124,17 @@ function errorFileNotFound(
   file: VFile,
   filePath: string
 ): never {
-  if (isDefined(node.attributes?.optional)) {
-    throw file.info(
+  if (
+    node.attributes?.optional === null ||
+    typeof node.attributes?.optional === 'undefined'
+  ) {
+    file.fail(
       `::include, file not found - "${filePath}"`,
       node,
       '@it-service-npm/remark-include'
     );
   } else {
-    file.fail(
+    throw file.info(
       `::include, file not found - "${filePath}"`,
       node,
       '@it-service-npm/remark-include'
@@ -189,7 +193,7 @@ function fixIncludedAST(
           // Allow escaping spaces
           .split(/(?<!\\) /g)
           .find((meta) => meta.startsWith('file='));
-        if (!isDefined(fileMeta)) {
+        if (typeof fileMeta === 'undefined') {
           return;
         };
         // eslint-disable-next-line max-len

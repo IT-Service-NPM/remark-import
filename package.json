@@ -68,7 +68,6 @@
 		"remark": "^15.0.1",
 		"remark-directive": "^4.0.0",
 		"to-vfile": "^8.0.0",
-		"ts-runtime-typecheck": "^2.6.0",
 		"unist-util-visit": "^5.1.0"
 	},
 	"devDependencies": {
