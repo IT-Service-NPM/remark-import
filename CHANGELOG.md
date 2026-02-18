@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/IT-Service-NPM/remark-include/compare/v4.0.0...v4.0.1) (2026-02-18)
+
+
+### Bug Fixes
+
+* do not translate links starting with `/` ([50ef9ef](https://github.com/IT-Service-NPM/remark-include/commit/50ef9ef36d378d16091ee66aea44d2b8c927cd81)), closes [#10](https://github.com/IT-Service-NPM/remark-include/issues/10)
+
 # [4.0.0](https://github.com/IT-Service-NPM/remark-include/compare/v3.2.0...v4.0.0) (2026-02-17)
 
 ### Code Refactoring
