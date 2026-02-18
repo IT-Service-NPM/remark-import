@@ -8,7 +8,6 @@ import remarkTypography from 'remark-typography';
 import remarkValidateLinks from 'remark-validate-links';
 import remarkLintCodeBlockStyle from 'remark-lint-code-block-style';
 import codeImport from 'remark-code-import';
-import remarkDirective from 'remark-directive';
 import { remarkInclude } from '#@it-service-npm/remark-include';
 import remarkToc from 'remark-toc';
 import removeComments from 'remark-remove-comments';
@@ -16,7 +15,6 @@ import removeComments from 'remark-remove-comments';
 export default {
   plugins: [
     codeImport,
-    remarkDirective,
     remarkInclude,
     remarkToc,
     remarkLicense,

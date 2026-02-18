@@ -23,12 +23,13 @@ import {
 import { globSync } from 'node:fs';
 import { glob } from 'node:fs/promises';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { Transformer, Plugin, Processor } from 'unified';
+import type { Transformer, Preset, Plugin, Processor } from 'unified';
 import type {
   Node, Root, Parent, Heading,
   Resource, Code, RootContent
 } from 'mdast';
 import type { LeafDirective } from 'mdast-util-directive';
+import remarkDirective from 'remark-directive';
 import type { VFile } from 'vfile';
 import { VFileMessage } from 'vfile-message';
 import { read, readSync } from 'to-vfile';
@@ -151,6 +152,8 @@ function errorFileNotFound(
 
 /**
  * Check if node instanceof Resource
+ *
+ * @internal
  */
 const isResource = isStruct({
   url: isString,
@@ -242,19 +245,9 @@ function fixIncludedAST(
 };
 
 /**
- * Sync plugin fabric function.
- *
- * With this Remark plugin, you can use `::include`
- * directive to compose markdown files together.
- *
- * This plugin is a modern fork of
- * {@link https://github.com/BrekiTomasson/remark-import| remark-import}
- * and {@link https://github.com/Qard/remark-include| remark-include},
- * compatible with Remark v15.
- *
- * @public
+ * @internal
  */
-export function remarkIncludeSync(
+export function _remarkIncludeSync(
   this: Processor
 ): Transformer<Root> {
 
@@ -273,7 +266,7 @@ export function remarkIncludeSync(
           file);
         const includedFilesPaths = globSync(filePathGlob, {
           cwd: path.resolve(file.dirname!)
-        });
+        }).sort();
         if (includedFilesPaths.length === 0) {
           errorFileNotFound(includeDirective.node, file, filePathGlob);
         };
@@ -320,22 +313,46 @@ export function remarkIncludeSync(
 };
 // const remarkIncludeSyncPlugin: Plugin<[], Root> = remarkIncludeSync;
 
-export default remarkIncludeSync;
-
 /**
- * Async plugin fabric function.
+ * Sync plugin fabric function.
  *
- * With this Remark plugin, you can use `::include`
- * directive to compose markdown files together.
+ * With this plugin, you can use `::include{file=./included.md}`
+ * statements to compose markdown files together.
  *
  * This plugin is a modern fork of
  * {@link https://github.com/BrekiTomasson/remark-import| remark-import}
  * and {@link https://github.com/Qard/remark-include| remark-include},
  * compatible with Remark v15.
  *
+ * Relative images and links in the imported files
+ * will have their paths rewritten
+ * to be relative the original document rather than the imported file.
+ *
+ * An imported markdown file will "inherit" the heading levels.
+ * If the `::include{file=./included.md}` statement happens under Heading 2,
+ * for example, any heading 1 in the included file
+ * will be "translated" to have header level 3.
+ *
+ * @remarks
+ *
+ * @see {@link https://github.com/BrekiTomasson/remark-import| remark-import},
+ * {@link https://github.com/Qard/remark-include| remark-include}
+ *
  * @public
  */
-export function remarkInclude(
+export const remarkIncludeSync: Preset = {
+  plugins: [
+    remarkDirective,
+    _remarkIncludeSync
+  ]
+};
+
+export default remarkIncludeSync;
+
+/**
+ * @internal
+ */
+function _remarkInclude(
   this: Processor
 ): Transformer<Root> {
 
@@ -353,35 +370,36 @@ export function remarkInclude(
           includeDirective.node,
           file
         );
-
-        const _includedContent: RootContent[][] = [];
-        for await (const _includedFilePath of glob(filePathGlob, {
+        const includedFilesPaths = (await Array.fromAsync(glob(filePathGlob, {
           cwd: path.resolve(file.dirname!)
-        })) {
-          const includedFilePath = path.resolve(
-            path.resolve(file.dirname!),
-            _includedFilePath
-          );
-          const includedFile: VFile = await read(
-            includedFilePath, 'utf-8'
-          );
-          const includedAST: Root = await processor.run(
-            processor.parse(includedFile),
-            includedFile
-          ) as Root;
-          fixIncludedAST(
-            includedAST,
-            file, includedFile,
-            includeDirective.depth
-          );
-          _includedContent.unshift(includedAST.children);
-        };
-
-        if (_includedContent.length === 0) {
+        }))).sort();
+        if (includedFilesPaths.length === 0) {
           errorFileNotFound(includeDirective.node, file, filePathGlob);
         };
 
-        const includedContent: RootContent[] = _includedContent.flat();
+        const includedContent: RootContent[] =
+          (await Promise.all(includedFilesPaths.map(
+            async function (
+              _includedFilePath: string
+            ): Promise<RootContent[]> {
+              const includedFilePath = path.resolve(
+                path.resolve(file.dirname!),
+                _includedFilePath
+              );
+              const includedFile: VFile = await read(includedFilePath, 'utf-8');
+              const includedAST: Root = await processor.run(
+                processor.parse(includedFile),
+                includedFile
+              ) as Root;
+              fixIncludedAST(
+                includedAST,
+                file, includedFile,
+                includeDirective.depth
+              );
+              return includedAST.children;
+            }
+          ))).flat();
+
         includeDirective.parent.children.splice(
           includeDirective.index, 1,
           ...includedContent
@@ -401,3 +419,37 @@ export function remarkInclude(
   };
 };
 // const remarkIncludePlugin: Plugin<[], Root> = remarkInclude;
+
+/**
+ * Async plugin fabric function.
+ *
+ * With this plugin, you can use `::include{file=./included.md}`
+ * statements to compose markdown files together.
+ *
+ * This plugin is a modern fork of
+ * {@link https://github.com/BrekiTomasson/remark-import| remark-import}
+ * and {@link https://github.com/Qard/remark-include| remark-include},
+ * compatible with Remark v15.
+ *
+ * Relative images and links in the imported files
+ * will have their paths rewritten
+ * to be relative the original document rather than the imported file.
+ *
+ * An imported markdown file will "inherit" the heading levels.
+ * If the `::include{file=./included.md}` statement happens under Heading 2,
+ * for example, any heading 1 in the included file
+ * will be "translated" to have header level 3.
+ *
+ * @remarks
+ *
+ * @see {@link https://github.com/BrekiTomasson/remark-import| remark-import},
+ * {@link https://github.com/Qard/remark-include| remark-include}
+ *
+ * @public
+ */
+export const remarkInclude: Preset = {
+  plugins: [
+    remarkDirective,
+    _remarkInclude
+  ]
+};

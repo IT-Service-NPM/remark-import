@@ -3,7 +3,6 @@ import { remark } from 'remark';
 import type { Processor } from 'unified';
 import type { Root } from 'mdast';
 import * as vFile from 'to-vfile';
-import remarkDirective from 'remark-directive';
 import {
   remarkInclude,
   remarkIncludeSync
@@ -14,11 +13,10 @@ const testSnapshotsFilesPath: string = path.join(__dirname, 'snapshots');
 
 describe('remarkIncludeSync', () => {
 
-  let RemarkProcessor: Processor<Root, Root, Root, Root, string>;
+  let RemarkProcessor: Processor<Root, undefined, undefined, Root, string>;
 
   beforeEach(() => {
     RemarkProcessor = remark()
-      .use(remarkDirective)
       .use(remarkIncludeSync)
       .freeze();
   });
@@ -111,11 +109,10 @@ describe('remarkIncludeSync', () => {
 
 describe('remarkInclude', () => {
 
-  let RemarkProcessor: Processor<Root, Root, Root, Root, string>;
+  let RemarkProcessor: Processor<Root, undefined, undefined, Root, string>;
 
   beforeEach(() => {
     RemarkProcessor = remark()
-      .use(remarkDirective)
       .use(remarkInclude)
       .freeze();
   });

@@ -4,15 +4,16 @@
 
 ```ts
 
+import { Preset } from 'unified';
 import { Processor } from 'unified';
 import { Root } from 'mdast';
 import { Transformer } from 'unified';
 
 // @public
-export function remarkInclude(this: Processor): Transformer<Root>;
+export const remarkInclude: Preset;
 
 // @public
-function remarkIncludeSync(this: Processor): Transformer<Root>;
+const remarkIncludeSync: Preset;
 export default remarkIncludeSync;
 export { remarkIncludeSync }
 

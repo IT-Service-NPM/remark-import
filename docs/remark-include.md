@@ -4,11 +4,11 @@
 
 ## remark-include package
 
-## Functions
+## Variables
 
 <table><thead><tr><th>
 
-Function
+Variable
 
 
 </th><th>
@@ -19,31 +19,39 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[remarkInclude(this)](./remark-include.remarkinclude.md)
+[remarkInclude](./remark-include.remarkinclude.md)
 
 
 </td><td>
 
 Async plugin fabric function.
 
-With this Remark plugin, you can use `::include` directive to compose markdown files together.
+With this plugin, you can use `::include{file=./included.md}` statements to compose markdown files together.
 
 This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
+
+Relative images and links in the imported files will have their paths rewritten to be relative the original document rather than the imported file.
+
+An imported markdown file will "inherit" the heading levels. If the `::include{file=./included.md}` statement happens under Heading 2, for example, any heading 1 in the included file will be "translated" to have header level 3.
 
 
 </td></tr>
 <tr><td>
 
-[remarkIncludeSync(this)](./remark-include.remarkincludesync.md)
+[remarkIncludeSync](./remark-include.remarkincludesync.md)
 
 
 </td><td>
 
 Sync plugin fabric function.
 
-With this Remark plugin, you can use `::include` directive to compose markdown files together.
+With this plugin, you can use `::include{file=./included.md}` statements to compose markdown files together.
 
 This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
+
+Relative images and links in the imported files will have their paths rewritten to be relative the original document rather than the imported file.
+
+An imported markdown file will "inherit" the heading levels. If the `::include{file=./included.md}` statement happens under Heading 2, for example, any heading 1 in the included file will be "translated" to have header level 3.
 
 
 </td></tr>
