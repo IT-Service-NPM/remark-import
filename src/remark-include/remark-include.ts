@@ -64,7 +64,7 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
         (node.type === 'leafDirective') &&
         ((node).name === 'include')
       ) {
-        includeDirectives.push({
+        includeDirectives.unshift({
           node: node,
           index: index!,
           parent: parent!,
@@ -74,7 +74,7 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
     }
   );
 
-  return includeDirectives.reverse();
+  return includeDirectives;
 };
 
 /**
