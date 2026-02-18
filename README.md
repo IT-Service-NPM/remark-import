@@ -80,11 +80,11 @@ There are two plugins: `remarkInclude` (preferred) and `remarkIncludeSync`.
 > - `remarkIncludePreset`. This preset contains:
 >
 >   - `remarkInclude`
->   - [`remark-directive`][]
+>   - `remarkDirective`
 > - `remarkIncludePresetSync`. This preset contains:
 >
 >   - `remarkIncludeSync`
->   - [`remark-directive`][]
+>   - `remarkDirective`
 
 [`remark-directive`]: https://www.npmjs.com/package/remark-directive
 
@@ -108,10 +108,6 @@ There are two plugins: `remarkInclude` (preferred) and `remarkIncludeSync`.
 ```sh
 npm install --save-dev @it-service-npm/remark-include
 ```
-
-> [!IMPORTANT]
-> `remark-directive` plugin expected before
-> `@it-service-npm/remark-include`, but used implicitly
 
 ## Examples
 
