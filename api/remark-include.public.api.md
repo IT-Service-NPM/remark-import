@@ -10,11 +10,17 @@ import type { Root } from 'mdast';
 import type { Transformer } from 'unified';
 
 // @public
-export const remarkInclude: Preset;
+export function remarkInclude(this: Processor): Transformer<Root>;
 
 // @public
-const remarkIncludeSync: Preset;
-export default remarkIncludeSync;
-export { remarkIncludeSync }
+export const remarkIncludePreset: Preset;
+
+// @public
+const remarkIncludePresetSync: Preset;
+export default remarkIncludePresetSync;
+export { remarkIncludePresetSync }
+
+// @public
+export function remarkIncludeSync(this: Processor): Transformer<Root>;
 
 ```

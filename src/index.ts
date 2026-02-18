@@ -227,9 +227,33 @@ function fixIncludedAST(
 };
 
 /**
- * @internal
+ * Sync Remark plugin fabric function.
+ *
+ * With this plugin, you can use `::include{file=./included.md}`
+ * statements to compose markdown files together.
+ *
+ * This plugin is a modern fork of
+ * {@link https://github.com/BrekiTomasson/remark-import| remark-import}
+ * and {@link https://github.com/Qard/remark-include| remark-include},
+ * compatible with Remark v15.
+ *
+ * Relative images and links in the imported files
+ * will have their paths rewritten
+ * to be relative the original document rather than the imported file.
+ *
+ * An imported markdown file will "inherit" the heading levels.
+ * If the `::include{file=./included.md}` statement happens under Heading 2,
+ * for example, any heading 1 in the included file
+ * will be "translated" to have header level 3.
+ *
+ * @remarks
+ *
+ * @see {@link https://github.com/BrekiTomasson/remark-import| remark-import},
+ * {@link https://github.com/Qard/remark-include| remark-include}
+ *
+ * @public
  */
-export function _remarkIncludeSync(
+export function remarkIncludeSync(
   this: Processor
 ): Transformer<Root> {
 
@@ -296,7 +320,29 @@ export function _remarkIncludeSync(
 // const remarkIncludeSyncPlugin: Plugin<[], Root> = remarkIncludeSync;
 
 /**
- * Sync plugin fabric function.
+ * Preset of Remark plugins:
+ *
+ * - {@link remarkIncludeSync}
+ * - {@link https://www.npmjs.com/package/remark-directive| remark-directive}
+ *
+ * @remarks
+ *
+ * @see {@link remarkIncludeSync},
+ * {@link https://www.npmjs.com/package/remark-directive| remark-directive}
+ *
+ * @public
+ */
+export const remarkIncludePresetSync: Preset = {
+  plugins: [
+    remarkDirective,
+    remarkIncludeSync
+  ]
+};
+
+export default remarkIncludePresetSync;
+
+/**
+ * Async Remark plugin fabric function.
  *
  * With this plugin, you can use `::include{file=./included.md}`
  * statements to compose markdown files together.
@@ -322,19 +368,7 @@ export function _remarkIncludeSync(
  *
  * @public
  */
-export const remarkIncludeSync: Preset = {
-  plugins: [
-    remarkDirective,
-    _remarkIncludeSync
-  ]
-};
-
-export default remarkIncludeSync;
-
-/**
- * @internal
- */
-function _remarkInclude(
+export function remarkInclude(
   this: Processor
 ): Transformer<Root> {
 
@@ -403,35 +437,21 @@ function _remarkInclude(
 // const remarkIncludePlugin: Plugin<[], Root> = remarkInclude;
 
 /**
- * Async plugin fabric function.
+ * Preset of Remark plugins:
  *
- * With this plugin, you can use `::include{file=./included.md}`
- * statements to compose markdown files together.
- *
- * This plugin is a modern fork of
- * {@link https://github.com/BrekiTomasson/remark-import| remark-import}
- * and {@link https://github.com/Qard/remark-include| remark-include},
- * compatible with Remark v15.
- *
- * Relative images and links in the imported files
- * will have their paths rewritten
- * to be relative the original document rather than the imported file.
- *
- * An imported markdown file will "inherit" the heading levels.
- * If the `::include{file=./included.md}` statement happens under Heading 2,
- * for example, any heading 1 in the included file
- * will be "translated" to have header level 3.
+ * - {@link remarkInclude}
+ * - {@link https://www.npmjs.com/package/remark-directive| remark-directive}
  *
  * @remarks
  *
- * @see {@link https://github.com/BrekiTomasson/remark-import| remark-import},
- * {@link https://github.com/Qard/remark-include| remark-include}
+ * @see {@link remarkInclude},
+ * {@link https://www.npmjs.com/package/remark-directive| remark-directive}
  *
  * @public
  */
-export const remarkInclude: Preset = {
+export const remarkIncludePreset: Preset = {
   plugins: [
     remarkDirective,
-    _remarkInclude
+    remarkInclude
   ]
 };

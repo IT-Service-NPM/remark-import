@@ -4,8 +4,8 @@ import type { Processor } from 'unified';
 import type { Root } from 'mdast';
 import * as vFile from 'to-vfile';
 import {
-  remarkInclude,
-  remarkIncludeSync
+  remarkIncludePreset,
+  remarkIncludePresetSync
 } from '@it-service-npm/remark-include';
 
 const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
@@ -17,7 +17,7 @@ describe('remarkIncludeSync', () => {
 
   beforeEach(() => {
     RemarkProcessor = remark()
-      .use(remarkIncludeSync)
+      .use(remarkIncludePresetSync)
       .freeze();
   });
 
@@ -113,7 +113,7 @@ describe('remarkInclude', () => {
 
   beforeEach(() => {
     RemarkProcessor = remark()
-      .use(remarkInclude)
+      .use(remarkIncludePreset)
       .freeze();
   });
 

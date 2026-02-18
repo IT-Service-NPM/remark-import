@@ -2,9 +2,9 @@
 
 [Home](./index.md) &gt; [@it-service-npm/remark-include](./remark-include.md) &gt; [remarkInclude](./remark-include.remarkinclude.md)
 
-## remarkInclude variable
+## remarkInclude() function
 
-Async plugin fabric function.
+Async Remark plugin fabric function.
 
 With this plugin, you can use `::include{file=./included.md}` statements to compose markdown files together.
 
@@ -17,8 +17,46 @@ An imported markdown file will "inherit" the heading levels. If the `::include{f
 **Signature:**
 
 ```typescript
-remarkInclude: Preset
+export declare function remarkInclude(this: Processor): Transformer<Root>;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+this
+
+
+</td><td>
+
+Processor
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+Transformer&lt;Root&gt;
 
 ## Remarks
 

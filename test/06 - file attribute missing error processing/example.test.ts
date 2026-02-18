@@ -1,7 +1,7 @@
 import * as path from 'node:path';
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
-import { remarkIncludeSync } from '@it-service-npm/remark-include';
+import { remarkIncludePresetSync } from '@it-service-npm/remark-include';
 
 const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
 
@@ -12,7 +12,7 @@ describe('remark-include', () => {
     async () => {
 
       const RemarkProcessor = remark()
-        .use(remarkIncludeSync)
+        .use(remarkIncludePresetSync)
         .freeze();
       const testFile = await vFile.read(
         path.join(testSrcFilesPath, 'main-without-file-attribute.md')

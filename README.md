@@ -68,7 +68,25 @@ If the `::include{file=./included.md}` statement happens under Heading 2,
 for example, any heading 1 in the included file
 will be “translated” to have header level 3.
 
-There are two exports: `remarkInclude` (preferred) and `remarkIncludeSync`.
+There are two plugins: `remarkInclude` (preferred) and `remarkIncludeSync`.
+
+> [!IMPORTANT]
+>
+> [`remark-directive`][] plugin expected before
+> `@it-service-npm/remark-include`.
+>
+> This package provides two plugins presets:
+>
+> - `remarkIncludePreset`. This preset contains:
+>
+>   - `remarkInclude`
+>   - [`remark-directive`][]
+> - `remarkIncludePresetSync`. This preset contains:
+>
+>   - `remarkIncludeSync`
+>   - [`remark-directive`][]
+
+[`remark-directive`]: https://www.npmjs.com/package/remark-directive
 
 ## Contents
 
@@ -104,14 +122,14 @@ npm install --save-dev @it-service-npm/remark-include
 ```typescript file=test/examples/01/example.ts
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
-import { remarkIncludeSync } from '@it-service-npm/remark-include';
+import { remarkIncludePresetSync } from '@it-service-npm/remark-include';
 import type { VFile } from 'vfile';
 
 export async function remarkDirectiveUsingExample(
   filePath: string
 ): Promise<VFile> {
   return remark()
-    .use(remarkIncludeSync)
+    .use(remarkIncludePresetSync)
     .process(await vFile.read(filePath));
 };
 

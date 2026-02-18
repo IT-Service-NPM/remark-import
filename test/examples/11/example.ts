@@ -2,7 +2,7 @@ import { remark } from 'remark';
 // import type { Plugin } from 'unified';
 // import type { Root } from 'mdast';
 import * as vFile from 'to-vfile';
-import { remarkInclude } from '@it-service-npm/remark-include';
+import { remarkIncludePreset } from '@it-service-npm/remark-include';
 // import codeImport from 'remark-code-import';
 import type { VFile } from 'vfile';
 
@@ -22,6 +22,6 @@ export async function remarkDirectiveUsingExample(
     //   async: false,
     //   preserveTrailingNewline: false
     // })
-    .use(remarkInclude)
+    .use(remarkIncludePreset)
     .process(await vFile.read(filePath));
 };

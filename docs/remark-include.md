@@ -8,6 +8,59 @@ With this Remark plugin, you can use `::include` directive to compose markdown f
 
 This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
 
+## Functions
+
+<table><thead><tr><th>
+
+Function
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[remarkInclude(this)](./remark-include.remarkinclude.md)
+
+
+</td><td>
+
+Async Remark plugin fabric function.
+
+With this plugin, you can use `::include{file=./included.md}` statements to compose markdown files together.
+
+This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
+
+Relative images and links in the imported files will have their paths rewritten to be relative the original document rather than the imported file.
+
+An imported markdown file will "inherit" the heading levels. If the `::include{file=./included.md}` statement happens under Heading 2, for example, any heading 1 in the included file will be "translated" to have header level 3.
+
+
+</td></tr>
+<tr><td>
+
+[remarkIncludeSync(this)](./remark-include.remarkincludesync.md)
+
+
+</td><td>
+
+Sync Remark plugin fabric function.
+
+With this plugin, you can use `::include{file=./included.md}` statements to compose markdown files together.
+
+This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
+
+Relative images and links in the imported files will have their paths rewritten to be relative the original document rather than the imported file.
+
+An imported markdown file will "inherit" the heading levels. If the `::include{file=./included.md}` statement happens under Heading 2, for example, any heading 1 in the included file will be "translated" to have header level 3.
+
+
+</td></tr>
+</tbody></table>
+
 ## Variables
 
 <table><thead><tr><th>
@@ -23,39 +76,27 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[remarkInclude](./remark-include.remarkinclude.md)
+[remarkIncludePreset](./remark-include.remarkincludepreset.md)
 
 
 </td><td>
 
-Async plugin fabric function.
+Preset of Remark plugins:
 
-With this plugin, you can use `::include{file=./included.md}` statements to compose markdown files together.
-
-This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
-
-Relative images and links in the imported files will have their paths rewritten to be relative the original document rather than the imported file.
-
-An imported markdown file will "inherit" the heading levels. If the `::include{file=./included.md}` statement happens under Heading 2, for example, any heading 1 in the included file will be "translated" to have header level 3.
+- [remarkInclude()](./remark-include.remarkinclude.md) - [remark-directive](https://www.npmjs.com/package/remark-directive)
 
 
 </td></tr>
 <tr><td>
 
-[remarkIncludeSync](./remark-include.remarkincludesync.md)
+[remarkIncludePresetSync](./remark-include.remarkincludepresetsync.md)
 
 
 </td><td>
 
-Sync plugin fabric function.
+Preset of Remark plugins:
 
-With this plugin, you can use `::include{file=./included.md}` statements to compose markdown files together.
-
-This plugin is a modern fork of [remark-import](https://github.com/BrekiTomasson/remark-import) and [remark-include](https://github.com/Qard/remark-include)<!-- -->, compatible with Remark v15.
-
-Relative images and links in the imported files will have their paths rewritten to be relative the original document rather than the imported file.
-
-An imported markdown file will "inherit" the heading levels. If the `::include{file=./included.md}` statement happens under Heading 2, for example, any heading 1 in the included file will be "translated" to have header level 3.
+- [remarkIncludeSync()](./remark-include.remarkincludesync.md) - [remark-directive](https://www.npmjs.com/package/remark-directive)
 
 
 </td></tr>

@@ -8,14 +8,14 @@ import remarkTypography from 'remark-typography';
 import remarkValidateLinks from 'remark-validate-links';
 import remarkLintCodeBlockStyle from 'remark-lint-code-block-style';
 import codeImport from 'remark-code-import';
-import { remarkInclude } from '@it-service-npm/remark-include';
+import { remarkIncludePreset } from '@it-service-npm/remark-include';
 import remarkToc from 'remark-toc';
 import removeComments from 'remark-remove-comments';
 
 export default {
   plugins: [
     codeImport,
-    remarkInclude,
+    remarkIncludePreset,
     remarkToc,
     remarkLicense,
     remarkGfm,
