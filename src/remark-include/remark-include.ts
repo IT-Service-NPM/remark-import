@@ -13,7 +13,7 @@
 import * as path from 'node:path';
 import * as url from 'node:url';
 import RelateUrl from 'relateurl';
-import isRelativeUrl from 'is-relative-url';
+import isAbsoluteUrl from 'is-absolute-url';
 import convertPath from '@stdlib/utils-convert-path';
 import {
   assertDefined, isDefined,
@@ -187,9 +187,12 @@ function fixIncludedAST(
 
       } else if (isResource(_node)) {
         const node: Resource = _node;
-        if (isRelativeUrl(node.url,
-          { allowProtocolRelative: false })
-        ) {
+
+        function isGFMFileRelativeUrl(url: string): boolean {
+          return !(isAbsoluteUrl(url) || url.startsWith('/'));
+        };
+
+        if (isGFMFileRelativeUrl(node.url)) {
           node.url = RelateUrl.relate(
             url.pathToFileURL(mainFile.path).href,
             new URL(
