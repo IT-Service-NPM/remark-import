@@ -15,11 +15,7 @@ import * as url from 'node:url';
 import RelateUrl from 'relateurl';
 import isAbsoluteUrl from 'is-absolute-url';
 import convertPath from '@stdlib/utils-convert-path';
-import {
-  assertDefined, isDefined,
-  isString, isOptString,
-  isStruct
-} from 'ts-runtime-typecheck';
+import { assertDefined, isDefined } from 'ts-runtime-typecheck';
 import { globSync } from 'node:fs';
 import { glob } from 'node:fs/promises';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,7 +30,6 @@ import type { VFile } from 'vfile';
 import { VFileMessage } from 'vfile-message';
 import { read, readSync } from 'to-vfile';
 import { visit } from 'unist-util-visit';
-import { convert, is } from 'unist-util-is';
 
 /* eslint-disable max-statements */
 
@@ -62,15 +57,14 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
 
   visit(
     tree,
-    convert([
-      { type: 'leafDirective', name: 'include' },
-      { type: 'heading' }
-    ]),
     function (_node: Node, index?: number, parent?: Parent): void {
-      if (is(_node, 'heading')) {
+      if (_node.type === 'heading') {
         const node: Heading = _node as Heading;
         depth = node.depth;
-      } else {
+      } else if (
+        (_node.type === 'leafDirective') &&
+        ((_node as LeafDirective).name === 'include')
+      ) {
         includeDirectives.push({
           node: _node as LeafDirective,
           index: index!,
@@ -146,16 +140,6 @@ function errorFileNotFound(
 };
 
 /**
- * Check if node instanceof Resource
- *
- * @internal
- */
-const isResource = isStruct({
-  url: isString,
-  title: isOptString
-});
-
-/**
  * Included markdown AST postprocessing:
  *
  * - relative images and links in the included files
@@ -178,13 +162,13 @@ function fixIncludedAST(
   visit(includedAST,
     function (_node: Node): void {
 
-      if (is(_node, 'heading')) {
+      if (_node.type === 'heading') {
         const node: Heading = _node as Heading;
         depthDelta ??= node.depth - depth - 1;
         node.depth -= depthDelta;
 
-      } else if (isResource(_node)) {
-        const node: Resource = _node;
+      } else if (['image', 'link', 'definition'].includes(_node.type)) {
+        const node: Resource = _node as unknown as Resource;
 
         function isGFMFileRelativeUrl(url: string): boolean {
           return !(isAbsoluteUrl(url) || url.startsWith('/'));
@@ -200,7 +184,7 @@ function fixIncludedAST(
           );
         };
 
-      } else if (is(_node, 'code')) {
+      } else if (_node.type === 'code') {
         const node: Code = _node as Code;
         const fileMeta: string | undefined = (node.meta ?? '')
           // Allow escaping spaces
