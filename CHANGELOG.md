@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/IT-Service-NPM/remark-include/compare/v4.1.0...v4.2.0) (2026-02-18)
+
+
+### Features
+
+* add exports - 2 plugins and 2 presets ([d994461](https://github.com/IT-Service-NPM/remark-include/commit/d9944612e651aed1a0dc3d9b92b8b26b5dfd6ed5))
+
 # [4.1.0](https://github.com/IT-Service-NPM/remark-include/compare/v4.0.1...v4.1.0) (2026-02-18)
 
 
