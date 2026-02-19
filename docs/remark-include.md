@@ -81,9 +81,7 @@ Description
 
 </td><td>
 
-Preset of Remark plugins:
-
-- [remarkInclude()](./remark-include.remarkinclude.md) - [remark-directive](https://www.npmjs.com/package/remark-directive)
+Preset of Remark plugins: [remarkInclude()](./remark-include.remarkinclude.md) and [remarkDirective](https://www.npmjs.com/package/remark-directive)
 
 
 </td></tr>
@@ -94,9 +92,7 @@ Preset of Remark plugins:
 
 </td><td>
 
-Preset of Remark plugins:
-
-- [remarkIncludeSync()](./remark-include.remarkincludesync.md) - [remark-directive](https://www.npmjs.com/package/remark-directive)
+Preset of Remark plugins: [remarkIncludeSync()](./remark-include.remarkincludesync.md) and [remarkDirective](https://www.npmjs.com/package/remark-directive)
 
 
 </td></tr>

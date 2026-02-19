@@ -321,14 +321,13 @@ export function remarkIncludeSync(
 
 /**
  * Preset of Remark plugins:
- *
- * - {@link remarkIncludeSync}
- * - {@link https://www.npmjs.com/package/remark-directive| remark-directive}
+ * {@link remarkIncludeSync}
+ * and {@link https://www.npmjs.com/package/remark-directive| remarkDirective}
  *
  * @remarks
  *
  * @see {@link remarkIncludeSync},
- * {@link https://www.npmjs.com/package/remark-directive| remark-directive}
+ * {@link https://www.npmjs.com/package/remark-directive| remarkDirective}
  *
  * @public
  */
@@ -438,14 +437,13 @@ export function remarkInclude(
 
 /**
  * Preset of Remark plugins:
- *
- * - {@link remarkInclude}
- * - {@link https://www.npmjs.com/package/remark-directive| remark-directive}
+ * {@link remarkInclude}
+ * and {@link https://www.npmjs.com/package/remark-directive| remarkDirective}
  *
  * @remarks
  *
  * @see {@link remarkInclude},
- * {@link https://www.npmjs.com/package/remark-directive| remark-directive}
+ * {@link https://www.npmjs.com/package/remark-directive| remarkDirective}
  *
  * @public
  */

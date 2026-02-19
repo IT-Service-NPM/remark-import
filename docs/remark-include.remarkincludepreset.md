@@ -4,9 +4,7 @@
 
 ## remarkIncludePreset variable
 
-Preset of Remark plugins:
-
-- [remarkInclude()](./remark-include.remarkinclude.md) - [remark-directive](https://www.npmjs.com/package/remark-directive)
+Preset of Remark plugins: [remarkInclude()](./remark-include.remarkinclude.md) and [remarkDirective](https://www.npmjs.com/package/remark-directive)
 
 **Signature:**
 

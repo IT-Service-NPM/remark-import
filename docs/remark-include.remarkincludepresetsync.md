@@ -4,9 +4,7 @@
 
 ## remarkIncludePresetSync variable
 
-Preset of Remark plugins:
-
-- [remarkIncludeSync()](./remark-include.remarkincludesync.md) - [remark-directive](https://www.npmjs.com/package/remark-directive)
+Preset of Remark plugins: [remarkIncludeSync()](./remark-include.remarkincludesync.md) and [remarkDirective](https://www.npmjs.com/package/remark-directive)
 
 **Signature:**
 
