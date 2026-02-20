@@ -13,6 +13,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.1](https://github.com/IT-Service-NPM/remark-include/compare/v4.2.0...v4.2.1) (2026-02-20)
+
+
+### Bug Fixes
+
+* bump node min version to 22.17 ([5826d7d](https://github.com/IT-Service-NPM/remark-include/commit/5826d7df0725e7de12cd6cb147e7fb6ec3b67d81))
+
 # [4.2.0](https://github.com/IT-Service-NPM/remark-include/compare/v4.1.0...v4.2.0) (2026-02-18)
 
 ### Features
