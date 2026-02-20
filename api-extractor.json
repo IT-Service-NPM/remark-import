@@ -21,7 +21,7 @@
 		"enabled": true,
 		"apiJsonFilePath": "<projectFolder>/temp/<unscopedPackageName>.api.json",
 		"includeForgottenExports": false,
-		"projectFolderUrl": "https://github.com/IT-Service-NPM/gulp-sharp2/tree/main/"
+		"projectFolderUrl": "https://github.com/IT-Service-NPM/remark-include/tree/main/"
 	},
 	"dtsRollup": {
 		"enabled": false
