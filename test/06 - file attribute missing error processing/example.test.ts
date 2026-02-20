@@ -1,9 +1,9 @@
-import * as path from 'node:path';
+import path from 'node:path';
 import { remark } from 'remark';
 import * as vFile from 'to-vfile';
 import { remarkIncludePresetSync } from '@it-service-npm/remark-include';
 
-const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
+const testSourceFilesPath: string = path.join(__dirname, 'fixtures');
 
 describe('remark-include', () => {
 
@@ -15,7 +15,7 @@ describe('remark-include', () => {
         .use(remarkIncludePresetSync)
         .freeze();
       const testFile = await vFile.read(
-        path.join(testSrcFilesPath, 'main-without-file-attribute.md')
+        path.join(testSourceFilesPath, 'main-without-file-attribute.md')
       );
       const fileInfoSpy = vi.spyOn(testFile, 'info');
       const fileFailSpy = vi.spyOn(testFile, 'fail');

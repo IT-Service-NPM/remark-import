@@ -10,8 +10,8 @@
  * @packageDocumentation
  */
 
-import * as path from 'node:path';
-import * as url from 'node:url';
+import path from 'node:path';
+import url from 'node:url';
 import RelateUrl from 'relateurl';
 import isAbsoluteUrl from 'is-absolute-url';
 import convertPath from '@stdlib/utils-convert-path';
@@ -88,7 +88,7 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
  *
  * @internal
  */
-function getIncludeDirectiveFileAttr(
+function getIncludeDirectiveFileAttribute(
   node: LeafDirective,
   file: VFile
 ): string {
@@ -205,12 +205,12 @@ function fixIncludedAST(
           return;
         };
         // eslint-disable-next-line max-len
-        const fileAttrRegExp = /^file=(?<path>.+?)(?:(?:#(?:L(?<from>\d+)(?<dash>-)?)?)(?:L(?<to>\d+))?)?$/;
-        const res = fileAttrRegExp.exec(fileMeta);
-        if (res?.groups?.path) {
-          const filePath = res.groups.path;
+        const fileAttributeRegExp = /^file=(?<path>.+?)(?:(?:#(?:L(?<from>\d+)(?<dash>-)?)?)(?:L(?<to>\d+))?)?$/;
+        const fileMetaStructure = fileAttributeRegExp.exec(fileMeta);
+        if (fileMetaStructure?.groups?.path) {
+          const filePath = fileMetaStructure.groups.path;
           const normalizedFilePath = filePath
-            .replace(/\\ /g, ' ');
+            .replaceAll(String.raw`\ `, ' ');
           if (!path.isAbsolute(normalizedFilePath)) {
             const rebasedFilePath = convertPath(
               path.relative(
@@ -223,9 +223,13 @@ function fixIncludedAST(
               'posix'
             );
             node.meta =
-              'file=' + rebasedFilePath.replace(/ /g, '\\ ') +
-              (res.groups.from ? '#L' + res.groups.from : '') +
-              (res.groups.to ? '-L' + res.groups.to : '');
+              'file=' + rebasedFilePath.replaceAll(' ', String.raw`\ `) +
+              (fileMetaStructure.groups.from ?
+                '#L' + fileMetaStructure.groups.from
+                : '') +
+              (fileMetaStructure.groups.to ?
+                '-L' + fileMetaStructure.groups.to
+                : '');
           };
         }
       };
@@ -265,7 +269,6 @@ export function remarkIncludeSync(
   this: Processor
 ): Transformer<Root> {
 
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const processor: Processor = this;
 
   return function (tree: Root, file: VFile): Root {
@@ -275,17 +278,17 @@ export function remarkIncludeSync(
     for (const includeDirective of includeDirectives) {
       try {
 
-        const filePathGlob = getIncludeDirectiveFileAttr(
+        const filePathGlob = getIncludeDirectiveFileAttribute(
           includeDirective.node,
           file);
         const includedFilesPaths = globSync(filePathGlob, {
           cwd: path.resolve(file.dirname!)
-        }).sort();
+        }).toSorted();
         if (includedFilesPaths.length === 0) {
           errorFileNotFound(includeDirective.node, file, filePathGlob);
         };
 
-        const includedContent: RootContent[] = includedFilesPaths.map(
+        const includedContent: RootContent[] = includedFilesPaths.flatMap(
           function (
             _includedFilePath: string
           ): RootContent[] {
@@ -293,7 +296,7 @@ export function remarkIncludeSync(
               path.resolve(file.dirname!),
               _includedFilePath
             );
-            const includedFile: VFile = readSync(includedFilePath, 'utf-8');
+            const includedFile: VFile = readSync(includedFilePath, 'utf8');
             const includedAST: Root = processor.runSync(
               processor.parse(includedFile),
               includedFile
@@ -305,20 +308,20 @@ export function remarkIncludeSync(
             );
             return includedAST.children;
           }
-        ).flat();
+        );
 
         includeDirective.parent.children.splice(
           includeDirective.index, 1,
           ...includedContent
         );
 
-      } catch (err) {
-        if ((err instanceof VFileMessage) && (!err.fatal)) {
+      } catch (error) {
+        if ((error instanceof VFileMessage) && (!error.fatal)) {
           includeDirective.parent.children.splice(
             includeDirective.index, 1,
           );
         } else {
-          throw err;
+          throw error;
         };
       };
     };
@@ -379,7 +382,6 @@ export function remarkInclude(
   this: Processor
 ): Transformer<Root> {
 
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const processor: Processor = this;
 
   return async function (tree: Root, file: VFile): Promise<Root> {
@@ -389,18 +391,19 @@ export function remarkInclude(
     for (const includeDirective of includeDirectives) {
       try {
 
-        const filePathGlob = getIncludeDirectiveFileAttr(
+        const filePathGlob = getIncludeDirectiveFileAttribute(
           includeDirective.node,
           file
         );
         const includedFilesPaths = (await Array.fromAsync(glob(filePathGlob, {
           cwd: path.resolve(file.dirname!)
-        }))).sort();
+        })));
+        includedFilesPaths.sort();
         if (includedFilesPaths.length === 0) {
           errorFileNotFound(includeDirective.node, file, filePathGlob);
         };
 
-        const includedContent: RootContent[] =
+        const _includedContent: RootContent[][] =
           (await Promise.all(includedFilesPaths.map(
             async function (
               _includedFilePath: string
@@ -409,7 +412,7 @@ export function remarkInclude(
                 path.resolve(file.dirname!),
                 _includedFilePath
               );
-              const includedFile: VFile = await read(includedFilePath, 'utf-8');
+              const includedFile: VFile = await read(includedFilePath, 'utf8');
               const includedAST: Root = await processor.run(
                 processor.parse(includedFile),
                 includedFile
@@ -421,20 +424,21 @@ export function remarkInclude(
               );
               return includedAST.children;
             }
-          ))).flat();
+          )));
+        const includedContent: RootContent[] = _includedContent.flat();
 
         includeDirective.parent.children.splice(
           includeDirective.index, 1,
           ...includedContent
         );
 
-      } catch (err) {
-        if ((err instanceof VFileMessage) && (!err.fatal)) {
+      } catch (error) {
+        if ((error instanceof VFileMessage) && (!error.fatal)) {
           includeDirective.parent.children.splice(
             includeDirective.index, 1,
           );
         } else {
-          throw err;
+          throw error;
         };
       };
     };

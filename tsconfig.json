@@ -2,7 +2,7 @@
 	"files": [],
 	"include": [
 		"./test",
-		"./vitest.config.ts"
+		"./*.config.ts"
 	],
 	"references": [
 		{

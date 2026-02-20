@@ -1,4 +1,4 @@
-import * as path from 'node:path';
+import path from 'node:path';
 import { remark } from 'remark';
 import type { Processor } from 'unified';
 import type { Root } from 'mdast';
@@ -8,7 +8,7 @@ import {
   remarkIncludePresetSync
 } from '@it-service-npm/remark-include';
 
-const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
+const testSourceFilesPath: string = path.join(__dirname, 'fixtures');
 const testSnapshotsFilesPath: string = path.join(__dirname, 'snapshots');
 
 describe('remarkIncludeSync', () => {
@@ -26,7 +26,7 @@ describe('remarkIncludeSync', () => {
     async () => {
 
       const testFile = await vFile.read(
-        path.join(testSrcFilesPath, 'main-with-optional-include.md')
+        path.join(testSourceFilesPath, 'main-with-optional-include.md')
       );
       const fileInfoSpy = vi.spyOn(testFile, 'info');
       const fileFailSpy = vi.spyOn(testFile, 'fail');
@@ -48,7 +48,7 @@ describe('remarkIncludeSync', () => {
     async () => {
 
       const testFile = await vFile.read(
-        path.join(testSrcFilesPath, 'main-with-expected-include.md')
+        path.join(testSourceFilesPath, 'main-with-expected-include.md')
       );
       const fileInfoSpy = vi.spyOn(testFile, 'info');
       const fileFailSpy = vi.spyOn(testFile, 'fail');
@@ -67,9 +67,10 @@ describe('remarkIncludeSync', () => {
   it('send a INFO message to the remark processor if the file is not found with glob and an optional attribute is present',
     async () => {
 
-      const testFile = await vFile.read(
-        path.join(testSrcFilesPath, 'main-with-optional-include-with-glob.md')
-      );
+      const testFile = await vFile.read(path.join(
+        testSourceFilesPath,
+        'main-with-optional-include-with-glob.md'
+      ));
       const fileInfoSpy = vi.spyOn(testFile, 'info');
       const fileFailSpy = vi.spyOn(testFile, 'fail');
 
@@ -89,9 +90,10 @@ describe('remarkIncludeSync', () => {
   it('send a FAIL message to the remark processor if the file is not found with glob and an optional attribute is not present',
     async () => {
 
-      const testFile = await vFile.read(
-        path.join(testSrcFilesPath, 'main-with-expected-include-with-glob.md')
-      );
+      const testFile = await vFile.read(path.join(
+        testSourceFilesPath,
+        'main-with-expected-include-with-glob.md'
+      ));
       const fileInfoSpy = vi.spyOn(testFile, 'info');
       const fileFailSpy = vi.spyOn(testFile, 'fail');
 
@@ -122,7 +124,7 @@ describe('remarkInclude', () => {
     async () => {
 
       const testFile = await vFile.read(
-        path.join(testSrcFilesPath, 'main-with-optional-include.md')
+        path.join(testSourceFilesPath, 'main-with-optional-include.md')
       );
       const fileInfoSpy = vi.spyOn(testFile, 'info');
       const fileFailSpy = vi.spyOn(testFile, 'fail');
@@ -144,7 +146,7 @@ describe('remarkInclude', () => {
     async () => {
 
       const testFile = await vFile.read(
-        path.join(testSrcFilesPath, 'main-with-expected-include.md')
+        path.join(testSourceFilesPath, 'main-with-expected-include.md')
       );
       const fileInfoSpy = vi.spyOn(testFile, 'info');
       const fileFailSpy = vi.spyOn(testFile, 'fail');
@@ -163,9 +165,10 @@ describe('remarkInclude', () => {
   it('send a INFO message to the remark processor if the file is not found with glob and an optional attribute is present',
     async () => {
 
-      const testFile = await vFile.read(
-        path.join(testSrcFilesPath, 'main-with-optional-include-with-glob.md')
-      );
+      const testFile = await vFile.read(path.join(
+        testSourceFilesPath,
+        'main-with-optional-include-with-glob.md'
+      ));
       const fileInfoSpy = vi.spyOn(testFile, 'info');
       const fileFailSpy = vi.spyOn(testFile, 'fail');
 
@@ -185,9 +188,10 @@ describe('remarkInclude', () => {
   it('send a FAIL message to the remark processor if the file is not found with glob and an optional attribute is not present',
     async () => {
 
-      const testFile = await vFile.read(
-        path.join(testSrcFilesPath, 'main-with-expected-include-with-glob.md')
-      );
+      const testFile = await vFile.read(path.join(
+        testSourceFilesPath,
+        'main-with-expected-include-with-glob.md'
+      ));
       const fileInfoSpy = vi.spyOn(testFile, 'info');
       const fileFailSpy = vi.spyOn(testFile, 'fail');
 

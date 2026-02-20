@@ -1,8 +1,8 @@
 // import { promisify } from 'node:util';
-import * as path from 'node:path';
+import path from 'node:path';
 import { remarkDirectiveUsingExample } from './example.ts';
 
-const testSrcFilesPath: string = path.join(__dirname, 'fixtures');
+const testSourceFilesPath: string = path.join(__dirname, 'fixtures');
 
 describe('remark-include', () => {
 
@@ -13,11 +13,11 @@ describe('remark-include', () => {
         process.chdir(__dirname);
 
         const outputFile = await remarkDirectiveUsingExample(
-          path.join(testSrcFilesPath, 'main.md')
+          path.join(testSourceFilesPath, 'main.md')
         );
 
         await expect(String(outputFile))
-          .toMatchFileSnapshot(path.join(testSrcFilesPath, 'output.md'));
+          .toMatchFileSnapshot(path.join(testSourceFilesPath, 'output.md'));
 
       } finally {
         process.chdir(_cwd);
