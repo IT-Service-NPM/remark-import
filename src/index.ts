@@ -38,6 +38,8 @@ import { visit } from 'unist-util-visit';
  * @param tree source AST
  * @param _file source markdown file
  * @returns directives for later processing
+ *
+ * @internal
  */
 function getIncludeDirectives(tree: Root, _file: VFile): {
   node: LeafDirective,
@@ -83,6 +85,8 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
  * @param node include directive
  * @param file current markdown file
  * @returns file path (glob)
+ *
+ * @internal
  */
 function getIncludeDirectiveFileAttr(
   node: LeafDirective,
@@ -118,6 +122,8 @@ function getIncludeDirectiveFileAttr(
  * @param file - current markdown file
  * @param filePath - missing file path
  * @throws
+ *
+ * @internal
  */
 function errorFileNotFound(
   node: LeafDirective,
@@ -154,6 +160,8 @@ function errorFileNotFound(
  * @param mainFile main ("includer") markdown file
  * @param includedFile included markdown file
  * @param depth heading level for current include directive
+ *
+ * @internal
  */
 function fixIncludedAST(
   includedAST: Root,
