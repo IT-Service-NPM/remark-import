@@ -17,8 +17,7 @@ import isAbsoluteUrl from 'is-absolute-url';
 import convertPath from '@stdlib/utils-convert-path';
 import { globSync } from 'node:fs';
 import { glob } from 'node:fs/promises';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { Transformer, Preset, Plugin, Processor } from 'unified';
+import type { Transformer, Preset, Processor } from 'unified';
 import type {
   Nodes, Root, Parent, Heading,
   Resource, Code, RootContent
@@ -71,7 +70,7 @@ function getIncludeDirectives(tree: Root, _file: VFile): {
           parent: parent!,
           depth: depth
         });
-      };
+      }
     }
   );
 
@@ -149,6 +148,88 @@ function errorFileNotFound(
 };
 
 /**
+ * Translate included Resources ULR:
+ *
+ * - relative images and links in the included files
+ *   will have their paths rewritten
+ *   to be relative the original document rather than the imported file
+ *
+ * @param node image, link, definition or other Resource node
+ * @param mainFile main ("includer") markdown file
+ * @param includedFile included markdown file
+ *
+ * @internal
+ */
+function fixIncludedResourcesURL(
+  node: Resource,
+  mainFile: VFile,
+  includedFile: VFile
+): void {
+  if (!(isAbsoluteUrl(node.url) || node.url.startsWith('/'))) {
+    node.url = RelateUrl.relate(
+      url.pathToFileURL(mainFile.path).href,
+      new URL(
+        node.url,
+        url.pathToFileURL(includedFile.path)
+      ).href
+    );
+  };
+};
+
+/**
+ * Translate included code path:
+ *
+ * - an included markdown file will "inherit" the heading levels
+ *
+ * @param node Code node
+ * @param mainFile main ("includer") markdown file
+ * @param includedFile included markdown file
+ *
+ * @internal
+ */
+function fixIncludedCodePath(
+  node: Code,
+  mainFile: VFile,
+  includedFile: VFile
+): void {
+  const fileMeta: string | undefined = (node.meta ?? '')
+    // Allow escaping spaces
+    .split(/(?<!\\) /g)
+    .find((meta) => meta.startsWith('file='));
+  if (typeof fileMeta === 'undefined') {
+    return;
+  };
+  // eslint-disable-next-line max-len
+  const fileAttributeRegExp = /^file=(?<path>.+?)(?:(?:#(?:L(?<from>\d+)(?:-)?)?)(?:L(?<to>\d+))?)?$/;
+  const fileMetaStructure = fileAttributeRegExp.exec(fileMeta);
+  if (fileMetaStructure?.groups?.path) {
+    const filePath = fileMetaStructure.groups.path;
+    const normalizedFilePath = filePath
+      .replaceAll(String.raw`\ `, ' ');
+    if (!path.isAbsolute(normalizedFilePath)) {
+      const rebasedFilePath = convertPath(
+        path.relative(
+          mainFile.dirname!,
+          path.resolve(
+            path.dirname(includedFile.path),
+            normalizedFilePath
+          )
+        ),
+        'posix'
+      );
+      node.meta =
+        'file=' + rebasedFilePath.replaceAll(' ', String.raw`\ `) +
+        (fileMetaStructure.groups.from ?
+          '#L' + fileMetaStructure.groups.from
+          : '') +
+        (fileMetaStructure.groups.to ?
+          '-L' + fileMetaStructure.groups.to
+          : '');
+    };
+  };
+};
+
+/**
  * Included markdown AST postprocessing:
  *
  * - relative images and links in the included files
@@ -172,67 +253,14 @@ function fixIncludedAST(
   let depthDelta: number | undefined;
   visit(includedAST,
     function (_node: Nodes): void {
-
       if (_node.type === 'heading') {
         const node: Heading = _node;
-        depthDelta ??= node.depth - depth - 1;
-        node.depth -= depthDelta;
-
+        node.depth -= (depthDelta ??= node.depth - depth - 1);
       } else if (['image', 'link', 'definition'].includes(_node.type)) {
-        const node: Resource = _node as unknown as Resource;
-
-        function isGFMFileRelativeUrl(url: string): boolean {
-          return !(isAbsoluteUrl(url) || url.startsWith('/'));
-        };
-
-        if (isGFMFileRelativeUrl(node.url)) {
-          node.url = RelateUrl.relate(
-            url.pathToFileURL(mainFile.path).href,
-            new URL(
-              node.url,
-              url.pathToFileURL(includedFile.path)
-            ).href
-          );
-        };
-
+        fixIncludedResourcesURL(_node as Resource, mainFile, includedFile);
       } else if (_node.type === 'code') {
-        const node: Code = _node;
-        const fileMeta: string | undefined = (node.meta ?? '')
-          // Allow escaping spaces
-          .split(/(?<!\\) /g)
-          .find((meta) => meta.startsWith('file='));
-        if (typeof fileMeta === 'undefined') {
-          return;
-        };
-        // eslint-disable-next-line max-len
-        const fileAttributeRegExp = /^file=(?<path>.+?)(?:(?:#(?:L(?<from>\d+)(?<dash>-)?)?)(?:L(?<to>\d+))?)?$/;
-        const fileMetaStructure = fileAttributeRegExp.exec(fileMeta);
-        if (fileMetaStructure?.groups?.path) {
-          const filePath = fileMetaStructure.groups.path;
-          const normalizedFilePath = filePath
-            .replaceAll(String.raw`\ `, ' ');
-          if (!path.isAbsolute(normalizedFilePath)) {
-            const rebasedFilePath = convertPath(
-              path.relative(
-                mainFile.dirname!,
-                path.resolve(
-                  path.dirname(includedFile.path),
-                  normalizedFilePath
-                )
-              ),
-              'posix'
-            );
-            node.meta =
-              'file=' + rebasedFilePath.replaceAll(' ', String.raw`\ `) +
-              (fileMetaStructure.groups.from ?
-                '#L' + fileMetaStructure.groups.from
-                : '') +
-              (fileMetaStructure.groups.to ?
-                '-L' + fileMetaStructure.groups.to
-                : '');
-          };
-        }
-      };
+        fixIncludedCodePath(_node, mainFile, includedFile);
+      }
     }
   );
   return includedAST;
@@ -328,7 +356,6 @@ export function remarkIncludeSync(
     return tree;
   };
 };
-// const remarkIncludeSyncPlugin: Plugin<[], Root> = remarkIncludeSync;
 
 /**
  * Preset of Remark plugins:
@@ -445,7 +472,6 @@ export function remarkInclude(
     return tree;
   };
 };
-// const remarkIncludePlugin: Plugin<[], Root> = remarkInclude;
 
 /**
  * Preset of Remark plugins:

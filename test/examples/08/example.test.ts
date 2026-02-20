@@ -1,4 +1,3 @@
-// import { promisify } from 'node:util';
 import path from 'node:path';
 import {
   remarkDirectiveUsingExample as remarkDirectiveUsingExampleSync

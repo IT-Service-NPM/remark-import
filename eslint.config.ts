@@ -8,10 +8,12 @@ import ESLintPluginVitest from '@vitest/eslint-plugin';
 import ESLintPluginPrettier from 'eslint-plugin-prettier';
 import ESLintPluginUnicorn from 'eslint-plugin-unicorn';
 import ESLintConfigPrettier from 'eslint-config-prettier';
+import ESLintPluginSonarJs from 'eslint-plugin-sonarjs';
 
 export default defineConfig([
   {
     extends: [
+      ESLintPluginSonarJs.configs.recommended,
       ESLintJs.configs.recommended,
       // ESLintPluginTypescript.configs.recommendedTypeChecked,
       ...ESLintPluginTypescript.configs.strictTypeChecked,
@@ -49,7 +51,8 @@ export default defineConfig([
       'space-unary-ops': 'error',
       'unicorn/no-typeof-undefined': 'off',
       'unicorn/no-this-assignment': 'off',
-      '@typescript-eslint/no-this-alias': 'off'
+      '@typescript-eslint/no-this-alias': 'off',
+      'sonarjs/no-alphabetical-sort': 'off'
     },
     languageOptions: {
       ecmaVersion: 2022,
