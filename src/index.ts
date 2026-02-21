@@ -19,7 +19,7 @@ import { globSync } from 'node:fs';
 import { glob } from 'node:fs/promises';
 import type { Transformer, Preset, Processor } from 'unified';
 import type {
-  Nodes, Root, Parent, Heading,
+  Nodes, Root, Parent,
   Resource, Code, RootContent
 } from 'mdast';
 import type { LeafDirective } from 'mdast-util-directive';
@@ -252,15 +252,23 @@ function fixIncludedAST(
 ): Root {
   let depthDelta: number | undefined;
   visit(includedAST,
-    function (_node: Nodes): void {
-      if (_node.type === 'heading') {
-        const node: Heading = _node;
-        node.depth -= (depthDelta ??= node.depth - depth - 1);
-      } else if (['image', 'link', 'definition'].includes(_node.type)) {
-        fixIncludedResourcesURL(_node as Resource, mainFile, includedFile);
-      } else if (_node.type === 'code') {
-        fixIncludedCodePath(_node, mainFile, includedFile);
-      }
+    function (node: Nodes): void {
+      switch (node.type) {
+        case 'heading': {
+          node.depth -= (depthDelta ??= node.depth - depth - 1);
+          break;
+        }
+        case 'image':
+        case 'link':
+        case 'definition': {
+          fixIncludedResourcesURL(node, mainFile, includedFile);
+          break;
+        }
+        case 'code': {
+          fixIncludedCodePath(node, mainFile, includedFile);
+          break;
+        }
+      };
     }
   );
   return includedAST;
