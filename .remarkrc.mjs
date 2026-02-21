@@ -9,11 +9,13 @@ import remarkValidateLinks from 'remark-validate-links';
 import remarkLintCodeBlockStyle from 'remark-lint-code-block-style';
 import codeImport from 'remark-code-import';
 import { remarkIncludePreset } from '@it-service-npm/remark-include';
+import { remarkGithubAdmonitionsPreset } from '@it-service-npm/remark-gfm-admonition';
 import remarkToc from 'remark-toc';
 import removeComments from 'remark-remove-comments';
 
 export default {
   plugins: [
+    remarkGithubAdmonitionsPreset,
     codeImport,
     remarkIncludePreset,
     remarkToc,

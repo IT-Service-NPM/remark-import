@@ -71,7 +71,6 @@ will be “translated” to have header level 3.
 There are two plugins: `remarkInclude` (preferred) and `remarkIncludeSync`.
 
 > [!IMPORTANT]
->
 > [`remark-directive`][] plugin expected before
 > `@it-service-npm/remark-include`.
 >
